@@ -4,4 +4,8 @@ set(SOURCE
     ${CMAKE_CURRENT_LIST_DIR}/window.cpp
     ${CMAKE_CURRENT_LIST_DIR}/game-instance.cpp
     ${CMAKE_CURRENT_LIST_DIR}/fps-counter.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/shader.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/VAO.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/VBO.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/EBO.cpp
 )

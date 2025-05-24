@@ -7,6 +7,6 @@ bool glw::Init(void) {
     return glfw3;
 }
 
-bool glw::Shutdown(void) {
+void glw::Shutdown(void) {
     glw::_ShutdownGLFW3();
 }

@@ -2,8 +2,13 @@
 
 #include <chrono>
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 using namespace std::chrono;
 using namespace std::literals::chrono_literals;
+
+#include <iostream>
 
 // temporary
 constexpr int FPS_LIMIT = 60;
@@ -52,6 +57,8 @@ void glw::game::_GameInstance::Run(void) {
         double dt = 0;
 
         while (!this->quit) {
+            glfwPollEvents();
+
             currTime = steady_clock::now();
             double loopCycleDt = duration<double>(currTime - prevTime).count();
             prevTime = currTime;

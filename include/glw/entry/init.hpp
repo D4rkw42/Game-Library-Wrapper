@@ -2,5 +2,5 @@
 
 namespace glw {
     bool Init(void);
-    bool Shutdown(void);
+    void Shutdown(void);
 }

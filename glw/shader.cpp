@@ -1,10 +1,10 @@
-#include <glw/glwf3/shader.hpp>
+#include <glw/glfw3/shader.hpp>
 
 #include <fstream>
 
-glw::defs::glwf3::_Shader::_Shader(const std::string& vertShaderPath, const std::string& fragShaderPath) {
-    const std::string vertShaderContent = ReadShaderFile(vertShaderPath);
-    const std::string fragShaderContent = ReadShaderFile(fragShaderPath);
+glw::defs::glfw3::_Shader::_Shader(const std::string& name, const std::string& path) {
+    const std::string vertShaderContent = _ReadShaderFile(path + name + ".vert");
+    const std::string fragShaderContent = _ReadShaderFile(path + name + ".frag");
 
     const char* vertShaderCStr = vertShaderContent.c_str();
     const char* fragShaderCStr = fragShaderContent.c_str();
@@ -30,15 +30,26 @@ glw::defs::glwf3::_Shader::_Shader(const std::string& vertShaderPath, const std:
     glDeleteShader(fragmentShader);
 }
 
-glw::defs::glwf3::_Shader::~_Shader() {
-    glDeleteProgram(this->ID);
+glw::defs::glfw3::_Shader::~_Shader() {
+    glDeleteProgram(_GetShaderID());
 }
 
-GLuint glw::defs::glwf3::_Shader::GetShaderID(void) const noexcept {
+void glw::defs::glfw3::_Shader::_Activate(void) const {
+    glUseProgram(_GetShaderID());
+}
+
+GLuint glw::defs::glfw3::_Shader::_GetShaderID(void) const noexcept {
     return this->ID;
 }
 
-std::string glw::defs::glwf3::_Shader::ReadShaderFile(const std::string& path) const noexcept {
+void glw::defs::glfw3::_Shader::_SetUniformi(const GLchar* uniform, GLint value) {
+    GLint uniformID = glGetUniformLocation(_GetShaderID(), uniform);
+
+    _Activate();
+    glUniform1i(uniformID, value);
+}
+
+std::string glw::defs::glfw3::_Shader::_ReadShaderFile(const std::string& path) const noexcept {
     std::string content, line;
     std::ifstream file("./" + path);
 
