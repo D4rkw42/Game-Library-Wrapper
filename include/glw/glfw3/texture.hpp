@@ -11,13 +11,37 @@ namespace glw::defs::glfw3 {
             int width, height, channels;
 
             _Texture(const std::string& path);
+            _Texture(void);
+            
             ~_Texture();
 
             void _Bind(void) const;
             void _Unbind(void) const;
+            void _Activate(void) const;
+
+            _Texture(const _Texture&) = delete;
+            _Texture& operator=(const _Texture&) = delete;
+
+            // Move constructor
+            _Texture(_Texture&& other) noexcept : ID(other.ID) {
+                other.ID = 0;
+            }
+
+            _Texture& operator=(_Texture&& other) noexcept {
+                if (this != &other) {
+                    if (this->ID != 0) {
+                        glDeleteTextures(1, &this->ID);
+                    }
+
+                    this->ID = other.ID;
+                    other.ID = 0;
+                }
+
+                return *this;
+            }
 
         private:
-            GLuint ID;
+            GLuint ID = 0;
     };
 
     inline _Texture _CreateTexture(const std::string& path) {

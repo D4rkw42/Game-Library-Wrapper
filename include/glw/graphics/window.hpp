@@ -12,21 +12,40 @@ namespace glw::graphics {
             _Window(const std::string& title, int width, int height);
             ~_Window();
 
-            void Render(void) const noexcept;
-            void Clear(int red = 255, int green = 255, int blue = 255, float alpha = 1.0f) const noexcept;
+            std::string title;
+            int width, height;
 
-            bool CloseEvent(void) const noexcept;
+            /// @brief Updates window definitions 
+            void Update(void);
+            /// @brief Renders the window swaping the backbuffer with the frontbuffer
+            void Render(void) const;
+
+            /// @brief Clears the window with the RGB color specified (standard color white). The accepted values are between 0 and 255 (no exception is throwed)
+            /// @param red red color
+            /// @param green green color
+            /// @param blue blue color
+            void Clear(int red = 255, int green = 255, int blue = 255) const;
+
+            /// @brief Verify if a close window event was emitted
+            /// @return `true` if the user requested it
+            bool CloseEvent(void) const;
 
             GLFWwindow* _Get(void) const noexcept;
-            void _UseContext(void) const noexcept;
+            void _UseContext(void) const;
 
         private:
             GLFWwindow* window;
     };
 
-    inline std::shared_ptr<_Window> CreateWindow(const std::string& title, int width, int height) {
+    /// @brief Creates a window
+    /// @param title the title of the Window
+    /// @param width window's initial width
+    /// @param height window's initial height
+    /// @return A smart point for the window
+    inline std::shared_ptr<_Window> CreateWindow(const std::string& title, int width, int height) noexcept {
         return std::make_shared<_Window>(title, width, height);
     }
 
+    /// @brief Represents a window to be managed
     using Window = _Window;
 }

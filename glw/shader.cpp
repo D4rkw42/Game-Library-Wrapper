@@ -1,28 +1,35 @@
 #include <glw/glfw3/shader.hpp>
 
+#include <iostream>
 #include <fstream>
 
-glw::defs::glfw3::_Shader::_Shader(const std::string& name, const std::string& path) {
-    const std::string vertShaderContent = _ReadShaderFile(path + name + ".vert");
-    const std::string fragShaderContent = _ReadShaderFile(path + name + ".frag");
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+glw::defs::glfw3::_Shader::_Shader(const std::string& name) {
+    const std::string vertShaderContent = _ReadShaderFile(name + ".vert");
+    const std::string fragShaderContent = _ReadShaderFile(name + ".frag");
 
     const char* vertShaderCStr = vertShaderContent.c_str();
     const char* fragShaderCStr = fragShaderContent.c_str();
 
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
     GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-
+    
     glShaderSource(vertexShader, 1, &vertShaderCStr, NULL);
     glCompileShader(vertexShader);
-
+    _CompileErrors(vertexShader, "VERTEX");
+    
     glShaderSource(fragmentShader, 1, &fragShaderCStr, NULL);
     glCompileShader(fragmentShader);
+    _CompileErrors(fragmentShader, "FRAGMENT");
 
     GLuint shaderProgram = glCreateProgram();
 
     glAttachShader(shaderProgram, vertexShader);
     glAttachShader(shaderProgram, fragmentShader);
     glLinkProgram(shaderProgram);
+    _CompileErrors(shaderProgram, "PROGRAM");
 
     this->ID = shaderProgram;
 
@@ -30,32 +37,66 @@ glw::defs::glfw3::_Shader::_Shader(const std::string& name, const std::string& p
     glDeleteShader(fragmentShader);
 }
 
+glw::defs::glfw3::_Shader::_Shader(void) {}
+
 glw::defs::glfw3::_Shader::~_Shader() {
-    glDeleteProgram(_GetShaderID());
+    glDeleteProgram(this->ID);
 }
 
 void glw::defs::glfw3::_Shader::_Activate(void) const {
-    glUseProgram(_GetShaderID());
+    GLint currShaderProgram;
+
+    glGetIntegerv(GL_CURRENT_PROGRAM, &currShaderProgram);
+
+    if (currShaderProgram != this->ID) {
+        glUseProgram(this->ID);
+    }
 }
 
-GLuint glw::defs::glfw3::_Shader::_GetShaderID(void) const noexcept {
-    return this->ID;
-}
-
-void glw::defs::glfw3::_Shader::_SetUniformi(const GLchar* uniform, GLint value) {
-    GLint uniformID = glGetUniformLocation(_GetShaderID(), uniform);
-
+void glw::defs::glfw3::_Shader::_SetUniformi(const GLchar* uniform, GLint value) const {
     _Activate();
+
+    GLint uniformID = glGetUniformLocation(this->ID, uniform);
     glUniform1i(uniformID, value);
 }
 
-std::string glw::defs::glfw3::_Shader::_ReadShaderFile(const std::string& path) const noexcept {
+void glw::defs::glfw3::_Shader::_SetUniformMat4(const GLchar* uniform, const glm::mat4& value) const {
+    _Activate();
+
+    GLint uniformID = glGetUniformLocation(this->ID, uniform);
+    glUniformMatrix4fv(uniformID, 1, GL_FALSE, glm::value_ptr(value));
+}
+
+std::string glw::defs::glfw3::_Shader::_ReadShaderFile(const std::string& fileName) const {
     std::string content, line;
-    std::ifstream file("./" + path);
+    std::ifstream file("./" + std::string(SHADER_FOLDER_PATH) + fileName);
 
     while (std::getline(file, line)) {
         content += line + "\n";
     }
 
     return content;
+}
+
+void glw::defs::glfw3::_Shader::_CompileErrors(GLuint shader, const char* type) const {
+    GLint hasCompiled;
+    char infoLog[1024];
+
+    if (strcmp(type, "PROGRAM") == 0) {
+        glGetProgramiv(shader, GL_LINK_STATUS, &hasCompiled);
+
+        if (hasCompiled == GL_FALSE) {
+            glGetProgramInfoLog(shader, 1024, NULL, infoLog);
+            std::cerr << "SHADER_LINKING_ERROR for: " << type << "\n";
+            std::cerr << "reason: " << infoLog << "\n\n";
+        }
+    } else {
+        glGetShaderiv(shader, GL_COMPILE_STATUS, &hasCompiled);
+
+        if (hasCompiled == GL_FALSE) {
+            glGetShaderInfoLog(shader, 1024, NULL, infoLog);
+            std::cerr << "SHADER_COMPILATION_ERROR for: " << type << "\n";
+            std::cerr << "reason: " << infoLog << "\n\n";
+        }
+    }
 }

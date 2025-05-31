@@ -1,13 +1,17 @@
 #include <glw/glfw3/VBO.hpp>
 
-glw::defs::glfw3::_VBO::_VBO(GLfloat* vertices, GLsizeiptr size) {
+glw::defs::glfw3::_VBO::_VBO(const GLfloat* vertices, GLsizeiptr size) {
     glGenBuffers(1, &this->ID); //cria um buffer (nesse caso será uma VBO). 1 significa que essa VBO está tratando de apenas 1 objeto 3D
-    glBindBuffer(GL_ARRAY_BUFFER, this->ID);
+    _Bind();
     glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 }
 
+glw::defs::glfw3::_VBO::_VBO(void) {}
+
 glw::defs::glfw3::_VBO::~_VBO() {
-    glDeleteBuffers(1, &this->ID);
+    if (this->ID != 0) {
+        glDeleteBuffers(1, &this->ID);
+    }
 }
 
 void glw::defs::glfw3::_VBO::_Bind(void) const {

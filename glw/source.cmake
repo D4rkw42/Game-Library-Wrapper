@@ -8,4 +8,7 @@ set(SOURCE
     ${CMAKE_CURRENT_LIST_DIR}/VAO.cpp
     ${CMAKE_CURRENT_LIST_DIR}/VBO.cpp
     ${CMAKE_CURRENT_LIST_DIR}/EBO.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/mesh.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/texture.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/model.cpp
 )

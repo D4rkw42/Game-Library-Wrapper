@@ -1,17 +1,18 @@
 #include <glw/game/game-instance.hpp>
 
 #include <chrono>
+#include <thread>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <iostream>
+
 using namespace std::chrono;
 using namespace std::literals::chrono_literals;
 
-#include <iostream>
-
 // temporary
-constexpr int FPS_LIMIT = 60;
+constexpr int FPS_LIMIT = 120;
 
 void glw::game::_GameInstance::SetInitFunction(const glw::game::GameInitFunction& callback) noexcept {
     this->initCallback = callback;
@@ -78,6 +79,8 @@ void glw::game::_GameInstance::Run(void) {
                 
                 dt = 0;
             }
+
+            std::this_thread::sleep_for(1ms);
         }
 
         quitCallback();

@@ -1,13 +1,17 @@
 #include <glw/glfw3/EBO.hpp>
 
-glw::defs::glfw3::_EBO::_EBO(GLuint* indices, GLsizeiptr size) {
+glw::defs::glfw3::_EBO::_EBO(const GLuint* indices, GLsizeiptr size) {
     glGenBuffers(1, &this->ID);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->ID);
+    _Bind();
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
 }
 
+glw::defs::glfw3::_EBO::_EBO(void) {}
+
 glw::defs::glfw3::_EBO::~_EBO() {
-    glDeleteBuffers(1, &this->ID);
+    if (this->ID != 0) {
+        glDeleteBuffers(1, &this->ID);
+    }
 }
 
 void glw::defs::glfw3::_EBO::_Bind(void) const {
