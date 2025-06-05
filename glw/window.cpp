@@ -36,7 +36,7 @@ void glw::graphics::_Window::Clear(int red, int green, int blue) const {
     float glBlue = static_cast<float>(blue)/255;
 
     glClearColor(glRed, glGreen, glBlue, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 bool glw::graphics::_Window::CloseEvent(void) const {
@@ -51,4 +51,17 @@ void glw::graphics::_Window::_UseContext(void) const {
     if (glfwGetCurrentContext() != this->window) {
         glfwMakeContextCurrent(_Get());
     }
+}
+
+// window configuration
+
+void glw::graphics::_Window::_DepthTestConfig(bool enable) const noexcept {
+    if (enable) {
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_GEQUAL);
+        return;
+    }
+
+    glDisable(GL_DEPTH_TEST);
+    glDepthFunc(GL_NEVER);
 }

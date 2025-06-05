@@ -1,6 +1,6 @@
 #include <glw/utils/game/fps-counter.hpp>
 
-void glw::utils::game::_FPSCounter::_Load(double dt) noexcept {
+void glw::utils::game::_FPSCounter::_Load(float dt) noexcept {
     this->FPSCountTimeout -= dt;
 
     if (this->FPSCountTimeout <= 0) {

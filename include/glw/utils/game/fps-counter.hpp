@@ -3,7 +3,7 @@
 namespace glw::utils::game {
     class _FPSCounter {
         public:
-            void _Load(double dt) noexcept;
+            void _Load(float dt) noexcept;
             void _Count(void) noexcept;
             int _GetFPS(void) const noexcept;
 
@@ -12,6 +12,6 @@ namespace glw::utils::game {
                 FPSCount = 0,
                 FPS = 0;
 
-            double FPSCountTimeout = 1.0;
+            float FPSCountTimeout = 1.0f;
     };
 }

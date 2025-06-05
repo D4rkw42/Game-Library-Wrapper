@@ -33,12 +33,16 @@ namespace glw::graphics {
             GLFWwindow* _Get(void) const noexcept;
             void _UseContext(void) const;
 
+            // window configuration
+
+            void _DepthTestConfig(bool enable) const noexcept;
+
         private:
             GLFWwindow* window;
     };
 
     /// @brief Creates a window
-    /// @param title the title of the Window
+    /// @param title the title of the window
     /// @param width window's initial width
     /// @param height window's initial height
     /// @return A smart point for the window

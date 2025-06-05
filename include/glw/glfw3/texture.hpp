@@ -25,6 +25,10 @@ namespace glw::defs::glfw3 {
             // Move constructor
             _Texture(_Texture&& other) noexcept : ID(other.ID) {
                 other.ID = 0;
+
+                this->width = other.width;
+                this->height = other.height;
+                this->channels = other.channels;
             }
 
             _Texture& operator=(_Texture&& other) noexcept {
@@ -35,6 +39,10 @@ namespace glw::defs::glfw3 {
 
                     this->ID = other.ID;
                     other.ID = 0;
+                    
+                    this->width = other.width;
+                    this->height = other.height;
+                    this->channels = other.channels;
                 }
 
                 return *this;
