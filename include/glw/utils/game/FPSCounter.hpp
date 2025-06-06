@@ -4,9 +4,10 @@ namespace glw::utils::game {
     class _FPSCounter {
         public:
             void _Load(float dt) noexcept;
-            void _Count(void) noexcept;
             int _GetFPS(void) const noexcept;
-
+            
+            void _Count(void) noexcept;
+            
         private:
             int 
                 FPSCount = 0,

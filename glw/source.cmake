@@ -1,15 +1,14 @@
 set(SOURCE
     ${CMAKE_CURRENT_LIST_DIR}/init.cpp
     ${CMAKE_CURRENT_LIST_DIR}/libs.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/window.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/game-instance.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/fps-counter.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/shader.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Window.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/FPSCounter.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Shader.cpp
     ${CMAKE_CURRENT_LIST_DIR}/VAO.cpp
     ${CMAKE_CURRENT_LIST_DIR}/VBO.cpp
     ${CMAKE_CURRENT_LIST_DIR}/EBO.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/mesh.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/texture.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/model.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/image.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Mesh.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Texture.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Model.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/GameStateHandler.cpp
 )

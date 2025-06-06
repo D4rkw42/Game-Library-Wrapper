@@ -1,4 +1,4 @@
-#include <glw/utils/game/fps-counter.hpp>
+#include <glw/utils/game/FPSCounter.hpp>
 
 void glw::utils::game::_FPSCounter::_Load(float dt) noexcept {
     this->FPSCountTimeout -= dt;

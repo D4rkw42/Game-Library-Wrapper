@@ -1,4 +1,4 @@
-#include <glw/glfw3/mesh.hpp>
+#include <glw/glfw3/Mesh.hpp>
 
 glw::defs::glfw3::_Mesh::_Mesh(const glw::defs::glfw3::_MeshModel& model) {
     this->VAO._Generate();

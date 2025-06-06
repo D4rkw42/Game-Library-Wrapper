@@ -1,4 +1,4 @@
-#include <glw/game/ecs/components/rigid-body/rigid-body.hpp>
+#include <glw/game/ecs/components/rigid-body/RigidBody.hpp>
 
 #include <glw/utils/math/math.hpp>
 

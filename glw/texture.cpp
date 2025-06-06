@@ -1,4 +1,4 @@
-#include <glw/glfw3/texture.hpp>
+#include <glw/glfw3/Texture.hpp>
 
 #include <stb_image/stb_image.h>
 

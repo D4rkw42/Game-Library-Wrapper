@@ -1,4 +1,4 @@
 #pragma once
 
-#include <glw/graphics/window.hpp>
-#include <glw/graphics/color/color.hpp>
+#include <glw/graphics/Window.hpp>
+#include <glw/graphics/color/Color.hpp>

@@ -3,12 +3,12 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include <glw/glfw3/shader.hpp>
+#include <glw/glfw3/Shader.hpp>
 #include <glw/glfw3/VBO.hpp>
 #include <glw/glfw3/VAO.hpp>
 #include <glw/glfw3/EBO.hpp>
 
-#include <glw/glfw3/model.hpp>
+#include <glw/glfw3/Model.hpp>
 #include <glw/glfw3/models/models.hpp>
 
 namespace glw::defs::glfw3 {

@@ -1,4 +1,4 @@
-#include <glw/graphics/window.hpp>
+#include <glw/graphics/Window.hpp>
 
 glw::graphics::_Window::_Window(const std::string& title, int width, int height) {
     this->window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);

@@ -1,4 +1,4 @@
-#include <glw/game/ecs/components/transform/transform.hpp>
+#include <glw/game/ecs/components/transform/Transform.hpp>
 
 #include <cmath>
 

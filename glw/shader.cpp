@@ -1,4 +1,4 @@
-#include <glw/glfw3/shader.hpp>
+#include <glw/glfw3/Shader.hpp>
 
 #include <iostream>
 #include <fstream>

@@ -1,4 +1,4 @@
-#include <glw/glfw3/model.hpp>
+#include <glw/glfw3/Model.hpp>
 
 const GLfloat* glw::defs::glfw3::_MeshModel::_GetVertices(void) const noexcept {
     return this->vertices.data();
