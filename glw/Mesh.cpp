@@ -16,7 +16,7 @@ glw::defs::glfw3::_Mesh::_Mesh(const glw::defs::glfw3::_MeshModel& model) {
         const auto& section = model.sections[i];
         this->VAO._LinkAttribute(this->VBO, i, section._GetNumOfComponents(), GL_FLOAT, stride, section._GetOffset());
     }
-
+    
     this->VAO._Unbind();
     this->VBO._Unbind();
     this->EBO._Unbind();

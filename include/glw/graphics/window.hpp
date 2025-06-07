@@ -7,10 +7,10 @@
 #include <GLFW/glfw3.h>
 
 namespace glw::graphics {
-    class _Window {
+    class _WindowWrapper {
         public:
-            _Window(const std::string& title, int width, int height);
-            ~_Window();
+            _WindowWrapper(const std::string& title, int width, int height);
+            ~_WindowWrapper();
 
             std::string title;
             int width, height;
@@ -30,26 +30,20 @@ namespace glw::graphics {
             /// @return `true` if the user requested it
             bool CloseEvent(void) const;
 
-            GLFWwindow* _Get(void) const noexcept;
-            void _UseContext(void) const;
-
             // window configuration
 
             void _DepthTestConfig(bool enable) const noexcept;
-
-        private:
-            GLFWwindow* window;
     };
+    
+    /// @brief Represents a window to be managed
+    using Window = _WindowWrapper;
 
     /// @brief Creates a window
     /// @param title the title of the window
     /// @param width window's initial width
     /// @param height window's initial height
     /// @return A smart point for the window
-    inline std::shared_ptr<_Window> CreateWindow(const std::string& title, int width, int height) noexcept {
-        return std::make_shared<_Window>(title, width, height);
+    inline std::shared_ptr<Window> CreateWindow(const std::string& title, int width, int height) noexcept {
+        return std::make_shared<Window>(title, width, height);
     }
-
-    /// @brief Represents a window to be managed
-    using Window = _Window;
 }

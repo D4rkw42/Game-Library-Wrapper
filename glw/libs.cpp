@@ -6,14 +6,18 @@
 bool glw::_InitGLFW3(void) {
     bool success = glfwInit() == GLFW_TRUE;
 
+    if (!success) {
+        return false;
+    }
+
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     glfwWindowHint(GLFW_DEPTH_BITS, 24);
-    
-    return success;
+
+    return true;
 }
 
 void glw::_ShutdownGLFW3(void) {

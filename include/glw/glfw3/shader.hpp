@@ -21,6 +21,7 @@ namespace glw::defs::glfw3 {
 
             void _SetUniformi(const GLchar* uniform, GLint value) const;
             void _SetUniformMat4(const GLchar* uniform, const glm::mat4& value) const;
+            void _SetUniformVec4(const GLchar* uniform, const glm::vec4& value) const;
 
             _Shader(const _Shader&) = delete;
             _Shader& operator=(const _Shader&) = delete;

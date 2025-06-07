@@ -4,6 +4,7 @@
 #include <array>
 
 namespace glw::math {
+    /// @brief PI constant value
     constexpr float PI = 3.1415927f;
 
     // math operations

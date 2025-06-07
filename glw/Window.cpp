@@ -1,37 +1,48 @@
 #include <glw/graphics/Window.hpp>
 
-glw::graphics::_Window::_Window(const std::string& title, int width, int height) {
-    this->window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
-    // verificar se a janela foi criada
+#include <glw/system.hpp>
+#include <glw/resources/resources.hpp>
 
-    _UseContext();
-    
-    glfwSwapInterval(1);
-    gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-    glDisable(GL_CULL_FACE);
+glw::graphics::_WindowWrapper::_WindowWrapper(const std::string& title, int width, int height) {
+        // user can recreate the wrapper. The current window is safety cleared
+        if (glw::system::window != NULL) {
+            glw::resources::_DeleteResources();
+            glfwDestroyWindow(glw::system::window);
+            glw::system::window = NULL;
+        }
 
-    Update();
+        glw::system::window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
+        // verificar se a janela foi criada
+
+        glfwMakeContextCurrent(glw::system::window);
+        
+        glfwSwapInterval(1);
+        gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+        glDisable(GL_CULL_FACE);
+
+        Update();
+
+        // when a window is created, all resources have to be generated
+        glw::resources::_GenerateResources();
 }
 
-glw::graphics::_Window::~_Window() {
-    glfwDestroyWindow(this->window);
+glw::graphics::_WindowWrapper::~_WindowWrapper() {
+    // when the window is deleted, all resource have to be deleted also
+    glw::resources::_DeleteResources();
+    glfwDestroyWindow(glw::system::window);
+    glw::system::window = NULL;
 }
-void glw::graphics::_Window::Update(void) {
-    _UseContext();
-    
-    glfwGetWindowSize(_Get(), &this->width, &this->height);
+
+void glw::graphics::_WindowWrapper::Update(void) {
+    glfwGetWindowSize(glw::system::window, &this->width, &this->height);
     glViewport(0, 0, this->width, this->height);
 }
 
-void glw::graphics::_Window::Render(void) const {
-    _UseContext();
-    glfwSwapBuffers(_Get());
+void glw::graphics::_WindowWrapper::Render(void) const {
+    glfwSwapBuffers(glw::system::window);
 }
 
-void glw::graphics::_Window::Clear(int red, int green, int blue) const {
-    _UseContext();
-
-    float glRed = static_cast<float>(red)/255;
+void glw::graphics::_WindowWrapper::Clear(int red, int green, int blue) const {float glRed = static_cast<float>(red)/255;
     float glGreen = static_cast<float>(green)/255;
     float glBlue = static_cast<float>(blue)/255;
 
@@ -39,23 +50,13 @@ void glw::graphics::_Window::Clear(int red, int green, int blue) const {
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-bool glw::graphics::_Window::CloseEvent(void) const {
-    return glfwWindowShouldClose(_Get());
-}
-
-GLFWwindow* glw::graphics::_Window::_Get(void) const noexcept {
-    return this->window;
-}
-
-void glw::graphics::_Window::_UseContext(void) const {
-    if (glfwGetCurrentContext() != this->window) {
-        glfwMakeContextCurrent(_Get());
-    }
+bool glw::graphics::_WindowWrapper::CloseEvent(void) const {
+    return glfwWindowShouldClose(glw::system::window);
 }
 
 // window configuration
 
-void glw::graphics::_Window::_DepthTestConfig(bool enable) const noexcept {
+void glw::graphics::_WindowWrapper::_DepthTestConfig(bool enable) const noexcept {
     if (enable) {
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_GEQUAL);

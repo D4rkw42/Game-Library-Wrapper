@@ -58,4 +58,8 @@ namespace glw::defs::glfw3 {
     inline _Mesh _CreateMeshTextureSquare(void) noexcept {
         return _Mesh(glw::defs::glfw3::models::MeshTextureSquareModel);
     };
+
+    inline _Mesh _CreateMeshSquare(void) noexcept {
+        return _Mesh(glw::defs::glfw3::models::MeshSquareModel);
+    }
 }

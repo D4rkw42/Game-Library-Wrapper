@@ -1,4 +1,4 @@
 #pragma once
 
-#include <glw/system.hpp>
 #include <glw/entry/init.hpp>
+#include <glw/utils/math/math.hpp>

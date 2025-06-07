@@ -11,4 +11,7 @@ set(SOURCE
     ${CMAKE_CURRENT_LIST_DIR}/Texture.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Model.cpp
     ${CMAKE_CURRENT_LIST_DIR}/GameStateHandler.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Rectangle.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/geometry.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/resources.cpp
 )

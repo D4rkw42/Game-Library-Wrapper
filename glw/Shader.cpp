@@ -15,7 +15,7 @@ glw::defs::glfw3::_Shader::_Shader(const std::string& name) {
 
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
     GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    
+
     glShaderSource(vertexShader, 1, &vertShaderCStr, NULL);
     glCompileShader(vertexShader);
     _CompileErrors(vertexShader, "VERTEX");
@@ -65,6 +65,13 @@ void glw::defs::glfw3::_Shader::_SetUniformMat4(const GLchar* uniform, const glm
 
     GLint uniformID = glGetUniformLocation(this->ID, uniform);
     glUniformMatrix4fv(uniformID, 1, GL_FALSE, glm::value_ptr(value));
+}
+
+void glw::defs::glfw3::_Shader::_SetUniformVec4(const GLchar* uniform, const glm::vec4& value) const {
+    _Activate();
+
+    GLint uniformID = glGetUniformLocation(this->ID, uniform);
+    glUniform4fv(uniformID, 1, glm::value_ptr(value));
 }
 
 std::string glw::defs::glfw3::_Shader::_ReadShaderFile(const std::string& fileName) const {
