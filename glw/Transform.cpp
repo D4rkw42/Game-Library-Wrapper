@@ -2,26 +2,29 @@
 
 #include <cmath>
 
-glw::game::ecs::Transform::Transform(float x, float y, float angle) : x(x), y(y), angle(angle) {}
+glw::game::ecs::Transform::Transform(float x, float y, float rotation) : Position(x, y), Rotation(rotation) {}
 
 void glw::game::ecs::Transform::Translate(float velX, float velY) noexcept {
-    this->x += velX;
-    this->y += velY;
+    Translate(glw::math::Vec2f(velX, velY));
+}
+
+void glw::game::ecs::Transform::Translate(const glw::math::Vec2f& velocity) noexcept {
+    this->Position += velocity;
 }
 
 void glw::game::ecs::Transform::Move(float x, float y) noexcept {
-    this->x = x;
-    this->y = y;
+    this->Position.x = x;
+    this->Position.y = y;
 }
 
 void glw::game::ecs::Transform::LookAt(float x, float y, bool opposite) noexcept {
-    float angle = opposite?
-        -std::atan2(y - this->y, x - this->x) :
-        std::atan2(y - this->y, x - this->x);
+    float rotation = opposite?
+        -std::atan2(y - this->Position.y, x - this->Position.x) :
+        std::atan2(y - this->Position.y, x - this->Position.x);
 
-    ChangeAngle(angle);
+    ChangeRotation(rotation);
 }
 
-void glw::game::ecs::Transform::ChangeAngle(float angle) noexcept {
-    this->angle = angle;
+void glw::game::ecs::Transform::ChangeRotation(float rotation) noexcept {
+    this->Rotation = rotation;
 }

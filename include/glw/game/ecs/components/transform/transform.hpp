@@ -1,15 +1,15 @@
 #pragma once
 
+#include <glw/utils/math/vec2.hpp>
+
 namespace glw::game::ecs {
     /// @brief Represents the absolute position and oriention of a game element in the world
     class Transform {
         public:
-            float
-                x =     0.0f, // px
-                y =     0.0f, // px
-                angle = 0.0f; // rad
+            glw::math::Vec2f Position;
+            float Rotation;
             
-            explicit Transform(float x, float y, float angle);
+            explicit Transform(float x, float y, float rotation);
 
             Transform(void) = default;
             ~Transform() = default;
@@ -18,6 +18,10 @@ namespace glw::game::ecs {
             /// @param velX velocity on horizontal axis `px/s`
             /// @param velY velocity on vertical axis `px/s`
             void Translate(float velX, float velY) noexcept;
+            /// @brief Moves the element inscrementing position by velocity
+            /// @param velocity the velocity of translation
+            void Translate(const glw::math::Vec2f& velocity) noexcept;
+
             /// @brief Moves the element to the desired position
             /// @param x coordinate x `px`
             /// @param y coordinate y `px`
@@ -30,8 +34,8 @@ namespace glw::game::ecs {
             void LookAt(float x, float y, bool opposite = false) noexcept;
 
             /// @brief Changes element's orientation
-            /// @param angle orientation `rad`
-            void ChangeAngle(float angle) noexcept;
+            /// @param rotation orientation `rad`
+            void ChangeRotation(float rotation) noexcept;
 
             /// @brief Verifies if two transforms are from the same element
             /// @return `true` if they are the same

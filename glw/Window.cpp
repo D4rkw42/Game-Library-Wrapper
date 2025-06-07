@@ -34,8 +34,8 @@ glw::graphics::_WindowWrapper::~_WindowWrapper() {
 }
 
 void glw::graphics::_WindowWrapper::Update(void) {
-    glfwGetWindowSize(glw::system::window, &this->width, &this->height);
-    glViewport(0, 0, this->width, this->height);
+    glfwGetWindowSize(glw::system::window, &this->Width, &this->Height);
+    glViewport(0, 0, this->Width, this->Height);
 }
 
 void glw::graphics::_WindowWrapper::Render(void) const {

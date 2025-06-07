@@ -12,8 +12,8 @@ namespace glw::graphics {
             _WindowWrapper(const std::string& title, int width, int height);
             ~_WindowWrapper();
 
-            std::string title;
-            int width, height;
+            std::string Title;
+            int Width, Height;
 
             /// @brief Updates window definitions 
             void Update(void);

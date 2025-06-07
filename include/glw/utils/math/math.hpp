@@ -3,6 +3,8 @@
 #include <cmath>
 #include <array>
 
+#include <glw/utils/math/vec2.hpp>
+
 namespace glw::math {
     /// @brief PI constant value
     constexpr float PI = 3.1415927f;
