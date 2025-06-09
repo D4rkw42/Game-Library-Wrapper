@@ -24,7 +24,7 @@ void glw::game::ecs::RigidBody::MoveTowards(float vel, float rotation) noexcept 
 
 float glw::game::ecs::RigidBody::GetVelocity(void) const noexcept {
     return std::sqrt(
-        this->Velocity.x * this->Velocity.y +
+        this->Velocity.x * this->Velocity.x +
         this->Velocity.y * this->Velocity.y
     );
 }
@@ -33,9 +33,9 @@ float glw::game::ecs::RigidBody::GetMovementDirection(void) const noexcept {
     return std::atan2(this->Velocity.y, this->Velocity.x);
 }
 
-void glw::game::ecs::RigidBody::ApplyActionForce(RigidBody& source, float magnitude, float direction) noexcept {
+void glw::game::ecs::RigidBody::ApplyActionForce(glw::game::ecs::RigidBody& source, float magnitude, float direction) noexcept {
     ApplyForce(magnitude, direction);
-    source.ApplyForce(magnitude, -direction);
+    source.ApplyForce(magnitude, glw::math::OppositeAngle(direction));
 }
 
 void glw::game::ecs::RigidBody::ApplyForce(float magnitude, float direction) noexcept {

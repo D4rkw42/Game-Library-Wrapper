@@ -7,9 +7,13 @@ namespace glw::game::ecs {
     class Transform {
         public:
             glw::math::Vec2f Position;
-            float Rotation;
-            
-            explicit Transform(float x, float y, float rotation);
+            float Rotation = 0.0f;
+
+            float
+                Width = 0.0f,
+                Height = 0.0f;
+
+            explicit Transform(float x, float y, float width, float height, float rotation);
 
             Transform(void) = default;
             ~Transform() = default;
@@ -39,8 +43,14 @@ namespace glw::game::ecs {
 
             /// @brief Verifies if two transforms are from the same element
             /// @return `true` if they are the same
-            bool operator==(const glw::game::ecs::Transform& transform) const noexcept {
+            constexpr bool operator==(const glw::game::ecs::Transform& transform) const noexcept {
                 return this == &transform;
+            }
+
+            /// @brief Verifies if two transforms are not from the same element
+            /// @return `true` if they are different
+            constexpr bool operator!=(const glw::game::ecs::Transform& transform) const noexcept {
+                return this != &transform;
             }
     };
 
@@ -50,7 +60,7 @@ namespace glw::game::ecs {
     /// @brief Verifies if the transform is invalid
     /// @param transform the transform to compare
     /// @return `true` if the transform is invalid
-    inline bool InvalidTransform(const glw::game::ecs::Transform& transform) noexcept {
+    constexpr bool InvalidTransform(const glw::game::ecs::Transform& transform) noexcept {
         return transform == glw::game::ecs::NullTransform;
     }
 }

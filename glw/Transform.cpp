@@ -1,8 +1,9 @@
 #include <glw/game/ecs/components/transform/Transform.hpp>
 
-#include <cmath>
+#include <glw/utils/math/math.hpp>
 
-glw::game::ecs::Transform::Transform(float x, float y, float rotation) : Position(x, y), Rotation(rotation) {}
+glw::game::ecs::Transform::Transform(float x, float y, float width, float height, float rotation)
+    : Position(x, y), Width(width), Height(height), Rotation(rotation) {}
 
 void glw::game::ecs::Transform::Translate(float velX, float velY) noexcept {
     Translate(glw::math::Vec2f(velX, velY));
@@ -19,8 +20,8 @@ void glw::game::ecs::Transform::Move(float x, float y) noexcept {
 
 void glw::game::ecs::Transform::LookAt(float x, float y, bool opposite) noexcept {
     float rotation = opposite?
-        -std::atan2(y - this->Position.y, x - this->Position.x) :
-        std::atan2(y - this->Position.y, x - this->Position.x);
+        glw::math::OppositeAngle(glw::math::AngleBetweenPoints(this->Position.x, this->Position.y, x, y)) :
+        glw::math::AngleBetweenPoints(this->Position.x, this->Position.y, x, y);
 
     ChangeRotation(rotation);
 }

@@ -24,8 +24,29 @@ namespace glw::math {
         return std::sqrt(distX * distX + distY * distY);
     }
 
+    /// @brief Converts degree to rad
+    /// @param degree the angle `degree`
+    /// @return The angle converted `rad`
     constexpr float Rad(float degree) noexcept {
         return degree * PI / 180;
+    }
+
+    /// @brief Gets the angle between two points
+    /// @param x1 x coordinate of object 1
+    /// @param y1 y coordinate of object 1
+    /// @param x2 x coordinate of object 2
+    /// @param y2 y coordinate of object 2
+    /// @return The angle `rad`
+    constexpr float AngleBetweenPoints(float x1, float y1, float x2, float y2) noexcept {
+        return std::atan2(y1 - y2, x1 - x2);
+    }
+
+    /// @brief Calculates the opposite angle (aka antipodal angle)
+    /// @param rad the angle `rad`
+    /// @return The opposite angle in the circunference `rad`
+    constexpr float OppositeAngle(float rad) noexcept {
+        rad += Rad(180);
+        return (rad >= Rad(360))? rad - Rad(360) : rad;
     }
 
     // vector operations

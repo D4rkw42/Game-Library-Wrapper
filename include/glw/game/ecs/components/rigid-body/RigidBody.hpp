@@ -8,8 +8,13 @@ namespace glw::game::ecs {
         public:
             glw::math::Vec2f Velocity; // px/s
             float RotationVelocity = 0.0f; // rad/s
-
+            
+            float Restitution = 1.0f; // a.u
             float Mass = 1.0f; // a.u.
+
+            float
+                StaticAttrition     = 1.0f,
+                DynamicAttriction   = 0.8f;
 
             explicit RigidBody(float velX, float velY, float rotationVel, float mass);
 
@@ -57,8 +62,14 @@ namespace glw::game::ecs {
 
             /// @brief Verifies if two rigid bodies are from the same element
             /// @return `true` if they are the same
-            bool operator==(const RigidBody& rigidBody) const noexcept {
+            constexpr bool operator==(const RigidBody& rigidBody) const noexcept {
                 return this == &rigidBody;
+            }
+
+            /// @brief Verifies if two rigid bodies are not from the same element
+            /// @return `true` if they are different
+            constexpr bool operator!=(const RigidBody& rigidBody) const noexcept {
+                return this != &rigidBody;
             }
         
         private:
@@ -71,7 +82,7 @@ namespace glw::game::ecs {
     /// @brief Verifies if the rigid body is invalid
     /// @param rigidBody the rigid body to compare
     /// @return `true` if the rigid body is invalid
-    inline bool InvalidRigidBody(const glw::game::ecs::RigidBody& rigidBody) noexcept {
+    constexpr bool InvalidRigidBody(const glw::game::ecs::RigidBody& rigidBody) noexcept {
         return rigidBody == glw::game::ecs::NullRigidBody;    
     }
 }
