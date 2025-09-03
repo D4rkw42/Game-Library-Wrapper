@@ -13,7 +13,7 @@ void glw::graphics::_Rectangle::_Render(const std::shared_ptr<glw::graphics::_Wi
 
     this->shader._Activate();
 
-    glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(window->width), 0.0f, static_cast<float>(window->height));
+    glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(window->Width), 0.0f, static_cast<float>(window->Height));
     glm::mat4 model = glm::mat4(1.0f);
 
     model = glm::translate(model, glm::vec3(x, y, 0.0f));
@@ -21,10 +21,10 @@ void glw::graphics::_Rectangle::_Render(const std::shared_ptr<glw::graphics::_Wi
     model = glm::rotate(model, angle, glm::vec3(0.0f, 0.0f, 1.0f));
 
     glm::vec4 glColor = glm::vec4(
-        static_cast<float>(color.red) / 255,
-        static_cast<float>(color.green) / 255,
-        static_cast<float>(color.blue) / 255,
-        color.alpha
+        static_cast<float>(color.r) / 255,
+        static_cast<float>(color.g) / 255,
+        static_cast<float>(color.b) / 255,
+        color.a
     );
 
     this->shader._SetUniformMat4("projection", projection);

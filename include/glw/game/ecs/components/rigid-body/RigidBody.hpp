@@ -57,9 +57,6 @@ namespace glw::game::ecs {
             float _GetWeight(float gravityAcceleration) const noexcept;
             float _GetDensity(float volume) const noexcept;
 
-            float _GetForcesX(void) const noexcept;
-            float _GetForcesY(void) const noexcept;
-
             /// @brief Verifies if two rigid bodies are from the same element
             /// @return `true` if they are the same
             constexpr bool operator==(const RigidBody& rigidBody) const noexcept {

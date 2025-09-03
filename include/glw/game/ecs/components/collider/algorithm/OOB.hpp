@@ -7,26 +7,26 @@
 namespace glw::game::ecs::collider {
     class _OOB {
         public:
-            float x, y, width, height, angle;
+            float x, y, width, height, rotation;
 
             std::array<float, 2> 
                 axis[2],
                 vertices[4];
 
-            _OOB(float x, float y, float width, float height, float angle) {
+            _OOB(float x, float y, float width, float height, float rotation) {
                 this->x = x;
                 this->y = y;
                 this->width = width;
                 this->height = height;
-                this->angle = angle;
+                this->rotation = rotation;
 
                 _CalculateAxis();
                 _CalculateVertices();
             }
 
             inline void _CalculateAxis(void) noexcept {
-                this->axis[0] = { std::cos(this->angle), std::sin(this->angle) };
-                this->axis[1] = { -std::sin(this->angle), std::cos(this->angle) };
+                this->axis[0] = { std::cos(this->rotation), std::sin(this->rotation) };
+                this->axis[1] = { -std::sin(this->rotation), std::cos(this->rotation) };
             }
 
             inline void _CalculateVertices(void) {
@@ -42,12 +42,12 @@ namespace glw::game::ecs::collider {
             }
     };
 
-    inline std::array<float, 2> _ProjectOOB(const _OOB& oob, const std::array<float, 2>& axis) noexcept {
-        float min = glw::math::EscalarProduct(oob.vertices[0], axis);
+    inline std::array<float, 2> _ProjectOOB(const _OOB* oob, const std::array<float, 2> axis) noexcept {
+        float min = glw::math::EscalarProduct(oob->vertices[0], axis);
         float max = min;
 
         for (int i = 0; i < 4; ++i) {
-            float proj = glw::math::EscalarProduct(oob.vertices[i], axis);
+            float proj = glw::math::EscalarProduct(oob->vertices[i], axis);
 
             if (proj > max) {
                 max = proj;
@@ -65,8 +65,8 @@ namespace glw::game::ecs::collider {
         return !(interval1[1] <= interval2[0] || interval2[1] <= interval1[0]);
     }
 
-    inline bool _CheckOOBCollision(const _OOB& objectA, const _OOB& objectB) noexcept {
-        const std::array<float, 2> axes[4] = { objectA.axis[0], objectA.axis[1], objectB.axis[0], objectB.axis[1] };
+    inline bool _CheckOOBCollision(const _OOB* objectA, const _OOB* objectB) noexcept {
+        const std::array<float, 2> axes[4] = { objectA->axis[0], objectA->axis[1], objectB->axis[0], objectB->axis[1] };
 
         // @TODO Apply AABB collision test before to lower proccessing
 
