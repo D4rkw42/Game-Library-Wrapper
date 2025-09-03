@@ -54,8 +54,8 @@ namespace glw::game::ecs {
             /// @param direction force's direction `rad`
             void ApplyForce(float magnitude, float direction) noexcept;
             
-            float _GetWeight(float gravityAcceleration) const noexcept;
-            float _GetDensity(float volume) const noexcept;
+            float GetWeight(float gravityAcceleration) const noexcept;
+            float GetDensity(float volume) const noexcept;
 
             /// @brief Verifies if two rigid bodies are from the same element
             /// @return `true` if they are the same

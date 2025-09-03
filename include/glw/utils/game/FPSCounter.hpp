@@ -1,12 +1,12 @@
 #pragma once
 
 namespace glw::utils::game {
-    class _FPSCounter {
+    class FPSCounter {
         public:
-            void _Load(float dt) noexcept;
-            int _GetFPS(void) const noexcept;
+            void Load(float dt) noexcept;
+            int GetFPS(void) const noexcept;
             
-            void _Count(void) noexcept;
+            void Count(void) noexcept;
             
         private:
             int 

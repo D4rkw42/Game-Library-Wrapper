@@ -45,8 +45,8 @@ namespace glw::game {
 
             float executionCountdown = 0.0f;
 
-            glw::utils::game::_FPSCounter FPSCounter;
+            glw::utils::game::FPSCounter FPSCounter;
 
-            std::shared_ptr<glw::game::IGameState> _GetState(void) noexcept;
+            std::shared_ptr<glw::game::IGameState> GetState(void) noexcept;
     };
 }

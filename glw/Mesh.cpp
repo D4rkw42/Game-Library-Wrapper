@@ -1,34 +1,34 @@
 #include <glw/glfw3/Mesh.hpp>
 
-glw::defs::glfw3::_Mesh::_Mesh(const glw::defs::glfw3::_MeshModel& model) {
-    this->VAO._Generate();
-    this->VAO._Bind();
+glw::defs::glfw3::Mesh::Mesh(const glw::defs::glfw3::MeshModel& model) {
+    this->VAO.Generate();
+    this->VAO.Bind();
 
-    this->VBO = glw::defs::glfw3::_CreateVBO(model._GetVertices(), model._GetVerticesSizePtr());
-    this->EBO = glw::defs::glfw3::_CreateEBO(model._GetIndices(), model._GetIndicesSizePtr());
+    this->VBO = glw::defs::glfw3::CreateVBO(model.GetVertices(), model.GetVerticesSizePtr());
+    this->EBO = glw::defs::glfw3::CreateEBO(model.GetIndices(), model.GetIndicesSizePtr());
 
-    GLsizeiptr stride = model._GetStride();
+    GLsizeiptr stride = model.GetStride();
 
     this->glPrimitiveDrawMode = model.glPrimiveDrawMode;
-    this->indicesCount = model._GetIndicesCount();
+    this->indicesCount = model.GetIndicesCount();
 
     for (int i = 0; i < model.sections.size(); ++i) {
         const auto& section = model.sections[i];
-        this->VAO._LinkAttribute(this->VBO, i, section._GetNumOfComponents(), GL_FLOAT, stride, section._GetOffset());
+        this->VAO.LinkAttribute(this->VBO, i, section.GetNumOfComponents(), GL_FLOAT, stride, section.GetOffset());
     }
     
-    this->VAO._Unbind();
-    this->VBO._Unbind();
-    this->EBO._Unbind();
+    this->VAO.Unbind();
+    this->VBO.Unbind();
+    this->EBO.Unbind();
 }
 
-glw::defs::glfw3::_Mesh::_Mesh(void) {}
-glw::defs::glfw3::_Mesh::~_Mesh() {}
+glw::defs::glfw3::Mesh::Mesh(void) {}
+glw::defs::glfw3::Mesh::~Mesh() {}
 
-void glw::defs::glfw3::_Mesh::_Render(const glw::defs::glfw3::_Shader& shader) const {
-    shader._Activate();
+void glw::defs::glfw3::Mesh::Render(const glw::defs::glfw3::Shader& shader) const {
+    shader.Activate();
 
-    this->VAO._Bind();
+    this->VAO.Bind();
     glDrawElements(this->glPrimitiveDrawMode, this->indicesCount, GL_UNSIGNED_INT, (void*)0);
-    this->VAO._Unbind();
+    this->VAO.Unbind();
 }

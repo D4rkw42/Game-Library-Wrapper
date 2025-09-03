@@ -7,10 +7,10 @@
 #include <GLFW/glfw3.h>
 
 namespace glw::graphics {
-    class _WindowWrapper {
+    class WindowWrapper {
         public:
-            _WindowWrapper(const std::string& title, int width, int height);
-            ~_WindowWrapper();
+            WindowWrapper(const std::string& title, int width, int height);
+            ~WindowWrapper();
 
             std::string Title;
             int Width, Height;
@@ -32,11 +32,11 @@ namespace glw::graphics {
 
             // window configuration
 
-            void _DepthTestConfig(bool enable) const noexcept;
+            void DepthTestConfig(bool enable) const noexcept;
     };
     
     /// @brief Represents a window to be managed
-    using Window = _WindowWrapper;
+    using Window = WindowWrapper;
 
     /// @brief Creates a window
     /// @param title the title of the window

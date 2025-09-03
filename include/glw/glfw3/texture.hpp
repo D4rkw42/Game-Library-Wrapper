@@ -6,24 +6,24 @@
 #include <glfw/glfw3.h>
 
 namespace glw::defs::glfw3 {
-    class _Texture {
+    class Texture {
         public:
             int width, height, channels;
 
-            _Texture(const std::string& path);
-            _Texture(void);
+            Texture(const std::string& path);
+            Texture(void);
             
-            ~_Texture();
+            ~Texture();
 
-            void _Bind(void) const;
-            void _Unbind(void) const;
-            void _Activate(void) const;
+            void Bind(void) const;
+            void Unbind(void) const;
+            void Activate(void) const;
 
-            _Texture(const _Texture&) = delete;
-            _Texture& operator=(const _Texture&) = delete;
+            Texture(const Texture&) = delete;
+            Texture& operator=(const Texture&) = delete;
 
             // Move constructor
-            _Texture(_Texture&& other) noexcept : ID(other.ID) {
+            Texture(Texture&& other) noexcept : ID(other.ID) {
                 other.ID = 0;
 
                 this->width = other.width;
@@ -31,7 +31,7 @@ namespace glw::defs::glfw3 {
                 this->channels = other.channels;
             }
 
-            _Texture& operator=(_Texture&& other) noexcept {
+            Texture& operator=(Texture&& other) noexcept {
                 if (this != &other) {
                     if (this->ID != 0) {
                         glDeleteTextures(1, &this->ID);
@@ -52,7 +52,7 @@ namespace glw::defs::glfw3 {
             GLuint ID = 0;
     };
 
-    inline _Texture _CreateTexture(const std::string& path) {
-        return _Texture(path);
+    inline Texture CreateTexture(const std::string& path) {
+        return Texture(path);
     }
 }

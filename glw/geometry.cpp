@@ -7,7 +7,7 @@ void glw::graphics::FillRectangle(const std::shared_ptr<glw::graphics::Window> &
         return;
     }
 
-    glw::resources::graphics::geometry::rectangle->_Render(window, x, y, width, height, angle, color);
+    glw::resources::graphics::geometry::rectangle->Render(window, x, y, width, height, angle, color);
 }
 
 void glw::graphics::StrokeRectangle(const std::shared_ptr<glw::graphics::Window>& window, int x, int y, float weight, float angle, const glw::graphics::Color& color) {

@@ -3,15 +3,15 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-glw::graphics::_Rectangle::_Rectangle(void) : glw::graphics::_IShape() {
-    this->shader = glw::defs::glfw3::_CreateShader(ISHAPE_SHADER_NAME);
-    this->mesh = glw::defs::glfw3::_CreateMeshSquare();
+glw::graphics::Rectangle::Rectangle(void) : glw::graphics::IShape() {
+    this->shader = glw::defs::glfw3::CreateShader(ISHAPE_SHADER_NAME);
+    this->mesh = glw::defs::glfw3::CreateMeshSquare();
 }
 
-void glw::graphics::_Rectangle::_Render(const std::shared_ptr<glw::graphics::_WindowWrapper>& window, int x, int y, float width, float height, float angle, const glw::graphics::Color& color) const {
-    window->_DepthTestConfig(false);
+void glw::graphics::Rectangle::Render(const std::shared_ptr<glw::graphics::WindowWrapper>& window, int x, int y, float width, float height, float angle, const glw::graphics::Color& color) const {
+    window->DepthTestConfig(false);
 
-    this->shader._Activate();
+    this->shader.Activate();
 
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(window->Width), 0.0f, static_cast<float>(window->Height));
     glm::mat4 model = glm::mat4(1.0f);
@@ -27,9 +27,9 @@ void glw::graphics::_Rectangle::_Render(const std::shared_ptr<glw::graphics::_Wi
         color.a
     );
 
-    this->shader._SetUniformMat4("projection", projection);
-    this->shader._SetUniformMat4("model", model);
-    this->shader._SetUniformVec4("aColor", glColor);
+    this->shader.SetUniformMat4("projection", projection);
+    this->shader.SetUniformMat4("model", model);
+    this->shader.SetUniformVec4("aColor", glColor);
 
-    this->mesh._Render(this->shader);
+    this->mesh.Render(this->shader);
 }

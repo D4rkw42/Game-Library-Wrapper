@@ -12,20 +12,20 @@
 #include <glw/glfw3/models/models.hpp>
 
 namespace glw::defs::glfw3 {
-    class _Mesh {
+    class Mesh {
         public:
-            _Mesh(const glw::defs::glfw3::_MeshModel& model);
-            _Mesh(void);
+            Mesh(const glw::defs::glfw3::MeshModel& model);
+            Mesh(void);
 
-            ~_Mesh();
+            ~Mesh();
 
-            void _Render(const glw::defs::glfw3::_Shader& shader) const;
+            void Render(const glw::defs::glfw3::Shader& shader) const;
 
-            _Mesh(const _Mesh&) = delete;
-            _Mesh& operator=(const _Mesh&) = delete;
+            Mesh(const Mesh&) = delete;
+            Mesh& operator=(const Mesh&) = delete;
 
             // Move constructor
-            _Mesh(_Mesh&& other) noexcept {
+            Mesh(Mesh&& other) noexcept {
                 this->VBO = std::move(other.VBO);
                 this->VAO = std::move(other.VAO);
                 this->EBO = std::move(other.EBO);
@@ -35,7 +35,7 @@ namespace glw::defs::glfw3 {
             }
 
             // Move assigment
-            _Mesh& operator=(_Mesh&& other) noexcept {
+            Mesh& operator=(Mesh&& other) noexcept {
                 this->VBO = std::move(other.VBO);
                 this->VAO = std::move(other.VAO);
                 this->EBO = std::move(other.EBO);
@@ -47,19 +47,19 @@ namespace glw::defs::glfw3 {
             }
 
         private:
-            glw::defs::glfw3::_VBO VBO;
-            glw::defs::glfw3::_VAO VAO;
-            glw::defs::glfw3::_EBO EBO;
+            glw::defs::glfw3::VBO VBO;
+            glw::defs::glfw3::VAO VAO;
+            glw::defs::glfw3::EBO EBO;
 
             std::uint16_t glPrimitiveDrawMode;
             int indicesCount;
     };
 
-    inline _Mesh _CreateMeshTextureSquare(void) noexcept {
-        return _Mesh(glw::defs::glfw3::models::MeshTextureSquareModel);
+    inline Mesh CreateMeshTextureSquare(void) noexcept {
+        return Mesh(glw::defs::glfw3::models::MeshTextureSquareModel);
     };
 
-    inline _Mesh _CreateMeshSquare(void) noexcept {
-        return _Mesh(glw::defs::glfw3::models::MeshSquareModel);
+    inline Mesh CreateMeshSquare(void) noexcept {
+        return Mesh(glw::defs::glfw3::models::MeshSquareModel);
     }
 }

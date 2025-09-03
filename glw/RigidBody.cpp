@@ -46,10 +46,10 @@ void glw::game::ecs::RigidBody::ApplyForce(float magnitude, float direction) noe
     this->Forces.y += forceY;
 }
 
-float glw::game::ecs::RigidBody::_GetWeight(float gravityAcceleration) const noexcept {
+float glw::game::ecs::RigidBody::GetWeight(float gravityAcceleration) const noexcept {
     return this->Mass * gravityAcceleration;
 }
 
-float glw::game::ecs::RigidBody::_GetDensity(float volume) const noexcept {
+float glw::game::ecs::RigidBody::GetDensity(float volume) const noexcept {
     return this->Mass / volume;
 }

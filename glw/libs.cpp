@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-bool glw::_InitGLFW3(void) {
+bool glw::InitGLFW3(void) {
     bool success = glfwInit() == GLFW_TRUE;
 
     if (!success) {
@@ -20,6 +20,6 @@ bool glw::_InitGLFW3(void) {
     return true;
 }
 
-void glw::_ShutdownGLFW3(void) {
+void glw::ShutdownGLFW3(void) {
     glfwTerminate();
 }

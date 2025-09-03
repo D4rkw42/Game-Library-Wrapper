@@ -5,7 +5,7 @@
 #include <glw/utils/math/math.hpp>
 
 namespace glw::game::ecs::collider {
-    class _OOB {
+    class OOB {
         public:
             float x, y, width, height, rotation;
 
@@ -13,23 +13,23 @@ namespace glw::game::ecs::collider {
                 axis[2],
                 vertices[4];
 
-            _OOB(float x, float y, float width, float height, float rotation) {
+            OOB(float x, float y, float width, float height, float rotation) {
                 this->x = x;
                 this->y = y;
                 this->width = width;
                 this->height = height;
                 this->rotation = rotation;
 
-                _CalculateAxis();
-                _CalculateVertices();
+                CalculateAxis();
+                CalculateVertices();
             }
 
-            inline void _CalculateAxis(void) noexcept {
+            inline void CalculateAxis(void) noexcept {
                 this->axis[0] = { std::cos(this->rotation), std::sin(this->rotation) };
                 this->axis[1] = { -std::sin(this->rotation), std::cos(this->rotation) };
             }
 
-            inline void _CalculateVertices(void) {
+            inline void CalculateVertices(void) {
                 for (int i = 0; i < 4; ++i) {
                     int xOffsetFactor = (i < 2)? 1 : -1;
                     int yOffsetFactor = (i > 0 && i < 3)? -1 : 1;
@@ -42,7 +42,7 @@ namespace glw::game::ecs::collider {
             }
     };
 
-    inline std::array<float, 2> _ProjectOOB(const _OOB* oob, const std::array<float, 2> axis) noexcept {
+    inline std::array<float, 2> ProjectOOB(const OOB* oob, const std::array<float, 2> axis) noexcept {
         float min = glw::math::EscalarProduct(oob->vertices[0], axis);
         float max = min;
 
@@ -61,11 +61,11 @@ namespace glw::game::ecs::collider {
         return std::array<float, 2> { min, max };
     }
 
-    constexpr bool _OOBIntervalOverlap(const std::array<float, 2>& interval1, const std::array<float, 2>& interval2) noexcept {
+    constexpr bool OOBIntervalOverlap(const std::array<float, 2>& interval1, const std::array<float, 2>& interval2) noexcept {
         return !(interval1[1] <= interval2[0] || interval2[1] <= interval1[0]);
     }
 
-    inline bool _CheckOOBCollision(const _OOB* objectA, const _OOB* objectB) noexcept {
+    inline bool CheckOOBCollision(const OOB* objectA, const OOB* objectB) noexcept {
         const std::array<float, 2> axes[4] = { objectA->axis[0], objectA->axis[1], objectB->axis[0], objectB->axis[1] };
 
         // @TODO Apply AABB collision test before to lower proccessing
@@ -73,10 +73,10 @@ namespace glw::game::ecs::collider {
         for (int i = 0; i < 4; ++i) {
             const std::array<float, 2>& axis = axes[i];
 
-            const std::array<float, 2> projA = _ProjectOOB(objectA, axis);
-            const std::array<float, 2> projB = _ProjectOOB(objectB, axis);
+            const std::array<float, 2> projA = ProjectOOB(objectA, axis);
+            const std::array<float, 2> projB = ProjectOOB(objectB, axis);
 
-            if (!_OOBIntervalOverlap(projA, projB)) {
+            if (!OOBIntervalOverlap(projA, projB)) {
                 return false;
             }
         }

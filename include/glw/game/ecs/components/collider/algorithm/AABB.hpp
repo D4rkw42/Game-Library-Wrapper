@@ -3,10 +3,10 @@
 #include <cmath>
 
 namespace glw::game::ecs::collider {
-    struct _AABB {
+    struct AABB {
         float x, y, width, height;
 
-        _AABB(float x, float y, float width, float height) {
+        AABB(float x, float y, float width, float height) {
             this->x = x;
             this->y = y;
             this->width = width;
@@ -14,7 +14,7 @@ namespace glw::game::ecs::collider {
         }
     };
 
-    inline bool _CheckAABBCollision(const _AABB& objectA, const _AABB& objectB) noexcept {
+    inline bool CheckAABBCollision(const AABB& objectA, const AABB& objectB) noexcept {
         float minDistX = (objectA.width + objectB.width) / 2;
         float minDistY = (objectA.height + objectA.height) / 2;
 

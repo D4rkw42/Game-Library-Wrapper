@@ -4,26 +4,26 @@
 #include <GLFW/glfw3.h>
 
 namespace glw::defs::glfw3 {
-    class _VBO {
+    class VBO {
         public:
-            _VBO(const GLfloat* vertices, GLsizeiptr size);
-            _VBO(void);
+            VBO(const GLfloat* vertices, GLsizeiptr size);
+            VBO(void);
             
-            ~_VBO();
+            ~VBO();
 
-            void _Bind(void) const;
-            void _Unbind(void) const;
+            void Bind(void) const;
+            void Unbind(void) const;
 
-            _VBO(const _VBO&) = delete;
-            _VBO& operator=(const _VBO&) = delete;
+            VBO(const VBO&) = delete;
+            VBO& operator=(const VBO&) = delete;
 
             // Move constructor
-            _VBO(_VBO&& other) noexcept : ID(other.ID) {
+            VBO(VBO&& other) noexcept : ID(other.ID) {
                 other.ID = 0;
             }
 
             // Move assigment
-            _VBO& operator=(_VBO&& other) noexcept {
+            VBO& operator=(VBO&& other) noexcept {
                 if (this != &other) {
                     if (this->ID != 0) {
                         glDeleteBuffers(1, &this->ID);
@@ -40,7 +40,7 @@ namespace glw::defs::glfw3 {
             GLuint ID = 0;
     };
 
-    inline _VBO _CreateVBO(const GLfloat* vertices, GLsizeiptr size) noexcept {
-        return _VBO(vertices, size);
+    inline VBO CreateVBO(const GLfloat* vertices, GLsizeiptr size) noexcept {
+        return VBO(vertices, size);
     }
 }

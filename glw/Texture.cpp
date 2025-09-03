@@ -2,7 +2,7 @@
 
 #include <stb_image/stb_image.h>
 
-glw::defs::glfw3::_Texture::_Texture(const std::string& path) {
+glw::defs::glfw3::Texture::Texture(const std::string& path) {
     stbi_set_flip_vertically_on_load(true);
     GLubyte* bytes = stbi_load(path.c_str(), &this->width, &this->height, &this->channels, 0);
 
@@ -31,8 +31,8 @@ glw::defs::glfw3::_Texture::_Texture(const std::string& path) {
 
     this->ID = texture;
 
-    _Activate();
-    _Bind();
+    Activate();
+    Bind();
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -45,18 +45,18 @@ glw::defs::glfw3::_Texture::_Texture(const std::string& path) {
 
     stbi_image_free(bytes);
 
-    _Unbind();
+    Unbind();
 }
 
-glw::defs::glfw3::_Texture::_Texture(void) {}
+glw::defs::glfw3::Texture::Texture(void) {}
 
-glw::defs::glfw3::_Texture::~_Texture() {
+glw::defs::glfw3::Texture::~Texture() {
     if (this->ID != 0) {
         glDeleteTextures(1, &this->ID);
     }
 }
 
-void glw::defs::glfw3::_Texture::_Bind(void) const {
+void glw::defs::glfw3::Texture::Bind(void) const {
     GLint currTexture;
     glGetIntegerv(GL_TEXTURE_BINDING_2D, &currTexture);
 
@@ -65,11 +65,11 @@ void glw::defs::glfw3::_Texture::_Bind(void) const {
     }
 }
 
-void glw::defs::glfw3::_Texture::_Unbind(void) const {
+void glw::defs::glfw3::Texture::Unbind(void) const {
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void glw::defs::glfw3::_Texture::_Activate(void) const {
+void glw::defs::glfw3::Texture::Activate(void) const {
     GLint activeTexture;
     glGetIntegerv(GL_ACTIVE_TEXTURE, &activeTexture);
 

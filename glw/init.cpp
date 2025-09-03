@@ -6,7 +6,7 @@
 bool glw::Init(void) {
     // Initializing libs
 
-    bool glfw3 = glw::_InitGLFW3();
+    bool glfw3 = glw::InitGLFW3();
 
     if (!glfw3) {
         return false;
@@ -17,8 +17,8 @@ bool glw::Init(void) {
 
 void glw::Shutdown(void) {
     // delete all resources when shuting down
-    glw::resources::_DeleteResources();
+    glw::resources::DeleteResources();
 
     // Shuting libs down
-    glw::_ShutdownGLFW3();
+    glw::ShutdownGLFW3();
 }

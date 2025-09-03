@@ -25,7 +25,7 @@ void glw::game::GameStateHandler::DeleteState(const std::string& ID) {
 }
 
 void glw::game::GameStateHandler::LoadStates(void) {
-    std::shared_ptr<glw::game::IGameState> state = _GetState();
+    std::shared_ptr<glw::game::IGameState> state = GetState();
     
     if (state == nullptr) {
         return;
@@ -40,7 +40,7 @@ void glw::game::GameStateHandler::LoadStates(void) {
     float dt = std::chrono::duration<float>(this->currTime - this->prevTime).count();
     this->prevTime = this->currTime;
 
-    this->FPSCounter._Load(dt);
+    this->FPSCounter.Load(dt);
 
     const float executionStep = 1.0f / FPS;
 
@@ -50,13 +50,13 @@ void glw::game::GameStateHandler::LoadStates(void) {
         this->executionCountdown += executionStep;
 
         state->Update(dt);
-        state->Render(FPSCounter._GetFPS());
-        this->FPSCounter._Count();
+        state->Render(FPSCounter.GetFPS());
+        this->FPSCounter.Count();
     }
 }
 
 void glw::game::GameStateHandler::RestartState(void) {
-    std::shared_ptr<glw::game::IGameState> state = _GetState();
+    std::shared_ptr<glw::game::IGameState> state = GetState();
 
     if (state != nullptr) {
         NextState(this->currStateID);
@@ -76,7 +76,7 @@ void glw::game::GameStateHandler::NextState(const std::string& ID) {
     this->needInitializeState = true;
 }
 
-std::shared_ptr<glw::game::IGameState> glw::game::GameStateHandler::_GetState(void) noexcept {
+std::shared_ptr<glw::game::IGameState> glw::game::GameStateHandler::GetState(void) noexcept {
     if (this->currStateID != "none") {
         return this->states[this->currStateID];
     }

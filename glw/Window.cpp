@@ -3,10 +3,10 @@
 #include <glw/system.hpp>
 #include <glw/resources/resources.hpp>
 
-glw::graphics::_WindowWrapper::_WindowWrapper(const std::string& title, int width, int height) {
+glw::graphics::WindowWrapper::WindowWrapper(const std::string& title, int width, int height) {
         // user can recreate the wrapper. The current window is safety cleared
         if (glw::system::window != NULL) {
-            glw::resources::_DeleteResources();
+            glw::resources::DeleteResources();
             glfwDestroyWindow(glw::system::window);
             glw::system::window = NULL;
         }
@@ -23,26 +23,26 @@ glw::graphics::_WindowWrapper::_WindowWrapper(const std::string& title, int widt
         Update();
 
         // when a window is created, all resources have to be generated
-        glw::resources::_GenerateResources();
+        glw::resources::GenerateResources();
 }
 
-glw::graphics::_WindowWrapper::~_WindowWrapper() {
+glw::graphics::WindowWrapper::~WindowWrapper() {
     // when the window is deleted, all resource have to be deleted also
-    glw::resources::_DeleteResources();
+    glw::resources::DeleteResources();
     glfwDestroyWindow(glw::system::window);
     glw::system::window = NULL;
 }
 
-void glw::graphics::_WindowWrapper::Update(void) {
+void glw::graphics::WindowWrapper::Update(void) {
     glfwGetWindowSize(glw::system::window, &this->Width, &this->Height);
     glViewport(0, 0, this->Width, this->Height);
 }
 
-void glw::graphics::_WindowWrapper::Render(void) const {
+void glw::graphics::WindowWrapper::Render(void) const {
     glfwSwapBuffers(glw::system::window);
 }
 
-void glw::graphics::_WindowWrapper::Clear(int red, int green, int blue) const {float glRed = static_cast<float>(red)/255;
+void glw::graphics::WindowWrapper::Clear(int red, int green, int blue) const {float glRed = static_cast<float>(red)/255;
     float glGreen = static_cast<float>(green)/255;
     float glBlue = static_cast<float>(blue)/255;
 
@@ -50,13 +50,13 @@ void glw::graphics::_WindowWrapper::Clear(int red, int green, int blue) const {f
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-bool glw::graphics::_WindowWrapper::CloseEvent(void) const {
+bool glw::graphics::WindowWrapper::CloseEvent(void) const {
     return glfwWindowShouldClose(glw::system::window);
 }
 
 // window configuration
 
-void glw::graphics::_WindowWrapper::_DepthTestConfig(bool enable) const noexcept {
+void glw::graphics::WindowWrapper::DepthTestConfig(bool enable) const noexcept {
     if (enable) {
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_GEQUAL);
