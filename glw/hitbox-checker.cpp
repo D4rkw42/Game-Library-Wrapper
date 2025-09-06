@@ -7,6 +7,8 @@
 
 #include <glw/utils/math/math.hpp>
 
+#include <iostream>
+
 bool glw::game::ecs::CheckHitboxCollision(const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox1, const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox2) {
     if (hitbox1->Type == glw::game::ecs::HitboxType::RECTANGLE && hitbox2->Type == glw::game::ecs::HitboxType::RECTANGLE) {
         return glw::game::ecs::CheckRectangleToRectangleCollision(hitbox1, hitbox2);
@@ -52,6 +54,9 @@ bool glw::game::ecs::CheckRectangleToCircunferenceCollision(const std::shared_pt
     std::array<float, 2> localPointCirc;
 
     glw::math::RotatePoint(pointRect, pointCirc, -oob->rotation, localPointCirc);
+
+    localPointCirc[0] -= oob->x;
+    localPointCirc[1] -= oob->y;
 
     float closestX = glw::math::Clamp(localPointCirc[0], -oob->width/2, oob->width/2);
     float closestY = glw::math::Clamp(localPointCirc[1], -oob->height/2, oob->height/2);

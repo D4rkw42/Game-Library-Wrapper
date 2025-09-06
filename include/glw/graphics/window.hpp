@@ -32,6 +32,7 @@ namespace glw::graphics {
 
             // window configuration
 
+            void BlendingConfig(bool enable) const noexcept;
             void DepthTestConfig(bool enable) const noexcept;
     };
     

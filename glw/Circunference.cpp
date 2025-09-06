@@ -1,14 +1,14 @@
-#include <glw/graphics/geometry/shapes/Rectangle.hpp>
+#include <glw/graphics/geometry/shapes/Circunference.hpp>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-glw::graphics::Rectangle::Rectangle(void) : glw::graphics::IShape() {
-    this->shader = glw::defs::glfw3::CreateShader(ISHAPE_SHADER_NAME);
+glw::graphics::Circunference::Circunference(void) : glw::graphics::IShape() {
+    this->shader = glw::defs::glfw3::CreateShader(CIRCUNFERENCE_SHADER_NAME);
     this->mesh = glw::defs::glfw3::CreateMeshSquare();
 }
 
-void glw::graphics::Rectangle::Render(const std::shared_ptr<glw::graphics::WindowWrapper>& window, int x, int y, float width, float height, float angle, const glw::graphics::Color& color) const {
+void glw::graphics::Circunference::Render(const std::shared_ptr<glw::graphics::WindowWrapper>& window, int x, int y, float width, float height, float angle, const glw::graphics::Color& color) const {
     window->DepthTestConfig(false);
     window->BlendingConfig(true);
 

@@ -56,6 +56,16 @@ bool glw::graphics::WindowWrapper::CloseEvent(void) const {
 
 // window configuration
 
+void glw::graphics::WindowWrapper::BlendingConfig(bool enable) const noexcept {
+    if (enable) {
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        return;
+    }
+
+    glDisable(GL_BLEND);
+}
+
 void glw::graphics::WindowWrapper::DepthTestConfig(bool enable) const noexcept {
     if (enable) {
         glEnable(GL_DEPTH_TEST);
@@ -64,5 +74,4 @@ void glw::graphics::WindowWrapper::DepthTestConfig(bool enable) const noexcept {
     }
 
     glDisable(GL_DEPTH_TEST);
-    glDepthFunc(GL_NEVER);
 }

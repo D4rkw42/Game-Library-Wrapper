@@ -14,4 +14,13 @@ namespace glw::graphics {
             this->a = alpha;
         }
     };
+
+    // Predefined colors
+    namespace Colors {
+        inline const Color BLACK = Color(0, 0, 0);
+        inline const Color RED = Color(255, 0, 0);
+        inline const Color GREEN = Color(0, 255, 0);
+        inline const Color BLUE = Color(0, 0, 255);
+        inline const Color WHITE = Color(255, 255, 255);
+    }
 }

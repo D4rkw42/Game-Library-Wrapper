@@ -54,7 +54,7 @@ namespace glw::math {
     /// @param max the max value
     /// @param min the min value
     /// @return The clamped value
-    constexpr float Clamp(float value, float max, float min) noexcept {
+    constexpr float Clamp(float value, float min, float max) noexcept {
         if (value > max) {
             return max;
         } else if (value < min) {
@@ -86,14 +86,14 @@ namespace glw::math {
         float vectorX = point[0] - center[0];
         float vectorY = point[1] - center[1];
 
-        float cos = std::cos(rotation);
-        float sin = std::sin(rotation);
+        float cos = std::cos(rotation); // @TODO trocar para função otimizada no futuro
+        float sin = std::sin(rotation); // @TODO trocar para função otimizada no futuro
 
         float xOffset = vectorX * cos - vectorY * sin;
-        float yOffset = vectorY * sin + vectorY * cos;
+        float yOffset = vectorX * sin + vectorY * cos;
 
-        newPoint[0] = point[0] + xOffset;
-        newPoint[1] = point[1] + yOffset;
+        newPoint[0] = center[0] + xOffset;
+        newPoint[1] = center[1] + yOffset;
     }
 
     // * linear algebra ** 

@@ -60,6 +60,13 @@ void glw::defs::glfw3::Shader::SetUniformi(const GLchar* uniform, GLint value) c
     glUniform1i(uniformID, value);
 }
 
+void glw::defs::glfw3::Shader::SetUniformf(const GLchar* uniform, GLfloat value) const{
+    Activate();
+
+    GLint uniformID = glGetUniformLocation(this->ID, uniform);
+    glUniform1f(uniformID, value);
+}
+
 void glw::defs::glfw3::Shader::SetUniformMat4(const GLchar* uniform, const glm::mat4& value) const {
     Activate();
 
@@ -95,7 +102,7 @@ void glw::defs::glfw3::Shader::CompileErrors(GLuint shader, const char* type) co
         if (hasCompiled == GL_FALSE) {
             glGetProgramInfoLog(shader, 1024, NULL, infoLog);
             std::cerr << "SHADER_LINKING_ERROR for: " << type << "\n";
-            std::cerr << "reason: " << infoLog << "\n\n";
+            std::cerr << "reason: \n" << infoLog << "\n\n";
         }
     } else {
         glGetShaderiv(shader, GL_COMPILE_STATUS, &hasCompiled);
@@ -103,7 +110,7 @@ void glw::defs::glfw3::Shader::CompileErrors(GLuint shader, const char* type) co
         if (hasCompiled == GL_FALSE) {
             glGetShaderInfoLog(shader, 1024, NULL, infoLog);
             std::cerr << "SHADER_COMPILATION_ERROR for: " << type << "\n";
-            std::cerr << "reason: " << infoLog << "\n\n";
+            std::cerr << "reason: \n" << infoLog << "\n\n";
         }
     }
 }

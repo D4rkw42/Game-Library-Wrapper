@@ -20,8 +20,9 @@ namespace glw::defs::glfw3 {
             void Activate(void) const;
 
             void SetUniformi(const GLchar* uniform, GLint value) const;
-            void SetUniformMat4(const GLchar* uniform, const glm::mat4& value) const;
+            void SetUniformf(const GLchar* uniform, GLfloat value) const;
             void SetUniformVec4(const GLchar* uniform, const glm::vec4& value) const;
+            void SetUniformMat4(const GLchar* uniform, const glm::mat4& value) const;
 
             Shader(const Shader&) = delete;
             Shader& operator=(const Shader&) = delete;

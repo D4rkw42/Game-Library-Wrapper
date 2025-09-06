@@ -4,12 +4,13 @@
 
 namespace glw::game::ecs::collider {
     struct Circunference {
-        float x, y, diameter;
+        float x, y, diameter, rotation; // this only have rotation because visual glitches
 
-        Circunference(float x, float y, float diameter) {
+        Circunference(float x, float y, float diameter, float rotation) {
             this->x = x;
             this->y = y;
             this->diameter = diameter;
+            this->rotation = rotation;
         }
     };
 

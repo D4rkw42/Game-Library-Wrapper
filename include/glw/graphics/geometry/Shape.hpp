@@ -9,6 +9,7 @@
 #include <glw/graphics/color/Color.hpp>
 
 constexpr const char* ISHAPE_SHADER_NAME = "StaticPrimitiveShader";
+constexpr const char* CIRCUNFERENCE_SHADER_NAME = "StaticCircunferenceShader";
 
 namespace glw::graphics {
     class IShape {
