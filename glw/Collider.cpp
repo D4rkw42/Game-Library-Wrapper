@@ -6,7 +6,6 @@
 
 #include <iostream>
 
-glw::game::ecs::Collider::Collider(void) {}
 glw::game::ecs::Collider::Collider(const glw::math::Vec2f& position, float rotation): Position(position), Rotation(rotation) {}
 
 void glw::game::ecs::Collider::Update(const glw::math::Vec2f& position, float rotation) noexcept {

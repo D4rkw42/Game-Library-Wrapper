@@ -20,7 +20,7 @@ namespace glw::game::ecs {
 
             explicit Collider(const glw::math::Vec2f& position, float rotation);
             
-            Collider(void);
+            Collider(void) = default;
             ~Collider() = default;
 
             void Update(const glw::math::Vec2f& position, float rotation) noexcept;
@@ -32,6 +32,18 @@ namespace glw::game::ecs {
             void AddRectangle(const glw::math::Vec2f& position, float width, float height, float rotation = 0.0f) noexcept;
             void AddCircunference(const glw::math::Vec2f& position, float diameter, float rotation = 0.0f) noexcept;
 
+            /// @brief Verifies if two colliders are from the same element
+            /// @return `true` if they are the same
+            constexpr bool operator==(const glw::game::ecs::Collider& collider) const noexcept {
+                return this == &collider;
+            }
+
+            /// @brief Verifies if two colliders are not from the same element
+            /// @return `true` if they are different
+            constexpr bool operator!=(const glw::game::ecs::Collider& collider) const noexcept {
+                return this != &collider;
+            }
+
         private:
             void RegisterHitbox(const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox) noexcept;
     };
@@ -39,4 +51,14 @@ namespace glw::game::ecs {
     inline bool CheckCollision(Collider& collider1, Collider& collider2) {
         return collider1.Check(collider2);
     };
+
+    /// @brief An invalid collider
+    inline Collider NullCollider;
+
+    /// @brief Verifies if the collider is invalid
+    /// @param collider the collider to compare
+    /// @return `true` if the collider is invalid
+    constexpr bool InvalidCollider(const glw::game::ecs::Collider& collider) noexcept {
+        return collider == glw::game::ecs::NullCollider;
+    }
 }

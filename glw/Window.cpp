@@ -42,7 +42,8 @@ void glw::graphics::WindowWrapper::Render(void) const {
     glfwSwapBuffers(glw::system::window);
 }
 
-void glw::graphics::WindowWrapper::Clear(int red, int green, int blue) const {float glRed = static_cast<float>(red)/255;
+void glw::graphics::WindowWrapper::Clear(int red, int green, int blue) const {
+    float glRed = static_cast<float>(red)/255;
     float glGreen = static_cast<float>(green)/255;
     float glBlue = static_cast<float>(blue)/255;
 

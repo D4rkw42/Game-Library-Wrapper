@@ -3,7 +3,7 @@
 #include <glw/resources/graphics/geometry.hpp>
 
 void glw::graphics::FillRectangle(const std::shared_ptr<glw::graphics::Window> &window, int x, int y, float width, float height, float rotation, const glw::graphics::Color &color) {
-    if (window == nullptr) {
+    if (window == nullptr || color.a <= 0.0f) {
         return;
     }
 
@@ -13,7 +13,7 @@ void glw::graphics::FillRectangle(const std::shared_ptr<glw::graphics::Window> &
 void glw::graphics::StrokeRectangle(void) {}
 
 void glw::graphics::FillCircunference(const std::shared_ptr<glw::graphics::Window>& window, int x, int y, float diameter, float rotation, const glw::graphics::Color& color) {
-    if (window == nullptr) {
+    if (window == nullptr || color.a <= 0.0f) {
         return;
     }
 

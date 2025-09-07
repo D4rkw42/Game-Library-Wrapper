@@ -6,7 +6,7 @@ namespace glw::game::ecs {
     /// @brief Represents the rigid body for a game element to manage physical phenomena
     class RigidBody {
         public:
-            glw::math::Vec2f Velocity; // px/s
+            glw::math::Vec2f Velocity, Acceleration, PreviousAcceleration; // px/s, px/s^2;
             float RotationVelocity = 0.0f; // rad/s
             
             float Restitution = 1.0f; // a.u
@@ -15,6 +15,9 @@ namespace glw::game::ecs {
             float
                 StaticAttrition     = 1.0f,
                 DynamicAttriction   = 0.8f;
+
+            // forces currently applied on body
+            glw::math::Vec2f Forces; // a.u * px/s^2
 
             explicit RigidBody(float velX, float velY, float rotationVel, float mass);
 
@@ -68,9 +71,6 @@ namespace glw::game::ecs {
             constexpr bool operator!=(const RigidBody& rigidBody) const noexcept {
                 return this != &rigidBody;
             }
-        
-        private:
-            glw::math::Vec2f Forces; // a.u * px/s^2
     };
 
     /// @brief An invalid rigid body
