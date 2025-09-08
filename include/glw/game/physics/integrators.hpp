@@ -7,7 +7,7 @@
 
 #include <glw/utils/math/vec2.hpp>
 
-namespace glw::game::physics::integrators {
+namespace glw::game::physics::integrator {
     inline void Kinematic(glw::game::ecs::Transform& transform, glw::game::ecs::RigidBody& rigidBody, float dt) noexcept {
         glw::math::Vec2f acc = rigidBody.Forces / rigidBody.Mass;
         rigidBody.PreviousAcceleration = rigidBody.Acceleration;
