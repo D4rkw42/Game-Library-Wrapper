@@ -8,6 +8,10 @@
 #include <glw/game/IGameState.hpp>
 #include <glw/utils/game/FPSCounter.hpp>
 
+// @TEMPORARY change to suitable FPS render user configuration eventually
+constexpr int RENDER_STEP = 60;
+constexpr int UPDATE_STEP = 200; // non-configurable
+
 namespace glw::game {
     /// @brief A handler to manage and run your game states
     class GameStateHandler {
@@ -43,7 +47,9 @@ namespace glw::game {
                 prevTime = std::chrono::steady_clock::now(),
                 currTime = prevTime;
 
-            float executionCountdown = 0.0f;
+            float
+                updateCountdown = 0.0f,
+                renderCountdown = 0.0f;
 
             glw::utils::game::FPSCounter FPSCounter;
 

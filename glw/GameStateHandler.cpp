@@ -1,10 +1,5 @@
 #include <glw/game/GameStateHandler.hpp>
 
-using namespace std::literals::chrono_literals;
-
-// @TEMPORARY change to suitable user configuration eventually
-constexpr int FPS = 60;
-
 glw::game::GameStateHandler::~GameStateHandler() {
     for (auto& [ID, _] : this->states) {
         DeleteState(ID);
@@ -12,6 +7,8 @@ glw::game::GameStateHandler::~GameStateHandler() {
 }
 
 //
+
+#include <iostream>
 
 void glw::game::GameStateHandler::CreateState(const std::string& ID, const std::shared_ptr<glw::game::IGameState>& state) noexcept {
     this->states[ID] = state;
@@ -40,16 +37,24 @@ void glw::game::GameStateHandler::LoadStates(void) {
     float dt = std::chrono::duration<float>(this->currTime - this->prevTime).count();
     this->prevTime = this->currTime;
 
+    const float renderStep = 1.0f / RENDER_STEP;
+    const float updateStep = 1.0f / UPDATE_STEP;
+
     this->FPSCounter.Load(dt);
 
-    const float executionStep = 1.0f / FPS;
+    this->updateCountdown -= dt;
+    this->renderCountdown -= dt;
 
-    this->executionCountdown -= dt;
+    // Update is fixed for deterministic behavior
+    if (this->updateCountdown <= 0.0f) {
+        this->updateCountdown += updateStep;
+        state->Update(updateStep);
+    }
 
-    if (this->executionCountdown <= 0.0f) {
-        this->executionCountdown += executionStep;
+    // Render can be unlimited or limited by user
+    if (this->renderCountdown <= 0.0f) {
+        this->renderCountdown += renderStep;
 
-        state->Update(dt);
         state->Render(FPSCounter.GetFPS());
         this->FPSCounter.Count();
     }

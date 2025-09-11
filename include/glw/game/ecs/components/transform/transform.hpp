@@ -18,13 +18,10 @@ namespace glw::game::ecs {
             Transform(void) = default;
             ~Transform() = default;
 
-            /// @brief Moves the element inscrementing position by velocity
-            /// @param velX velocity on horizontal axis `px/s`
-            /// @param velY velocity on vertical axis `px/s`
-            void Translate(float velX, float velY) noexcept;
-            /// @brief Moves the element inscrementing position by velocity
-            /// @param velocity the velocity of translation
-            void Translate(const glw::math::Vec2f& velocity) noexcept;
+            /// @brief Moves the element incrementing position by deslocation
+            /// @param x deslocation on horizontal axis `px`
+            /// @param y deslocation on vertical axis `px`
+            void Translate(float x, float y) noexcept;
 
             /// @brief Moves the element to the desired position
             /// @param x coordinate x `px`

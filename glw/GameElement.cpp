@@ -9,7 +9,21 @@ glw::game::ecs::GameElement::GameElement(const glw::math::Vec2f& position, float
     Transform().Rotation = rotation;
 }
 
-// 
+// Component creation/destruction
+
+glw::game::ecs::Collider& glw::game::ecs::GameElement::EnsureCollider(void) noexcept {
+    if (!HasCollider()) {
+        this->collider = glw::game::ecs::Collider(Transform().Position, Transform().Rotation);
+    }
+
+    return Collider();
+}
+
+void glw::game::ecs::GameElement::RemoveCollider(void) noexcept {
+    this->collider = std::nullopt;
+}
+
+//
 
 void glw::game::ecs::GameElement::LoadElement(float dt) {
     glw::game::ecs::Collider& collider = Collider();

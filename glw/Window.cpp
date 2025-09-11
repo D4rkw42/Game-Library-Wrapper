@@ -16,7 +16,9 @@ glw::graphics::WindowWrapper::WindowWrapper(const std::string& title, int width,
 
         glfwMakeContextCurrent(glw::system::window);
         
-        glfwSwapInterval(1);
+        // Deve estar em 0 para desativar V-Sync para não forçar o app a executar na taxa de atualização do monitor 60/120 Hz
+        glfwSwapInterval(0);
+
         gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
         glDisable(GL_CULL_FACE);
 

@@ -5,12 +5,9 @@
 glw::game::ecs::Transform::Transform(float x, float y, float width, float height, float rotation)
     : Position(x, y), Width(width), Height(height), Rotation(rotation) {}
 
-void glw::game::ecs::Transform::Translate(float velX, float velY) noexcept {
-    Translate(glw::math::Vec2f(velX, velY));
-}
-
-void glw::game::ecs::Transform::Translate(const glw::math::Vec2f& velocity) noexcept {
-    this->Position += velocity;
+void glw::game::ecs::Transform::Translate(float x, float y) noexcept {
+    this->Position.x += x;
+    this->Position.y += y;
 }
 
 void glw::game::ecs::Transform::Move(float x, float y) noexcept {

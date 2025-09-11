@@ -32,7 +32,12 @@ namespace glw::game::ecs {
 
             constexpr glw::game::ecs::Collider& Collider(void) noexcept {
                 return this->collider? *this->collider : NullCollider;
-            } 
+            }
+
+            // Component creation/destruction
+
+            glw::game::ecs::Collider& EnsureCollider(void) noexcept;
+            void RemoveCollider(void) noexcept;
     
             // Component existence verification
     
@@ -47,7 +52,7 @@ namespace glw::game::ecs {
             glw::game::ecs::Transform transform;
             glw::game::ecs::RigidBody rigidBody;
 
-        public:
+        protected:
             // System controlling and mandadory function calling
 
             void LoadElement(float dt); // atualiza definições do elemento. Chama as atualizações de Transform. Usado apenas quando não se aplica física da lib
