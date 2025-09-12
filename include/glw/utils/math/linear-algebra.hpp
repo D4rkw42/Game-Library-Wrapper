@@ -57,15 +57,15 @@ namespace glw::math {
     /// @param point the point projected in the vector
     /// @param vector the vector to calculate the projection
     /// @return The escalar product
-    constexpr float EscalarProduct(const std::array<float, 2>& point, const std::array<float, 2>& vector) noexcept {
+    constexpr float Dot(const std::array<float, 2>& point, const std::array<float, 2>& vector) noexcept {
         return point[0] * vector[0] + point[1] * vector[1];
     }
 
-    constexpr float EscalarProduct(const std::vector<float>& point, const std::vector<float>& vector) {
+    constexpr float Dot(const std::vector<float>& point, const std::vector<float>& vector) {
         return point[0] * vector[0] + point[1] * vector[1];
     }
 
-    constexpr float EscalarProduct(float pointX, float pointY, float vectorX, float vectorY) {
+    constexpr float Dot(float pointX, float pointY, float vectorX, float vectorY) {
         return pointX * vectorX + pointY * vectorY;
     }
 }

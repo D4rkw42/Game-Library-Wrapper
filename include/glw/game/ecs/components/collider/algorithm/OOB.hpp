@@ -43,11 +43,11 @@ namespace glw::game::ecs::collider {
     };
 
     inline std::array<float, 2> ProjectOOB(const OOB* oob, const std::array<float, 2> axis) noexcept {
-        float min = glw::math::EscalarProduct(oob->vertices[0], axis);
+        float min = glw::math::Dot(oob->vertices[0], axis);
         float max = min;
 
         for (int i = 0; i < 4; ++i) {
-            float proj = glw::math::EscalarProduct(oob->vertices[i], axis);
+            float proj = glw::math::Dot(oob->vertices[i], axis);
 
             if (proj > max) {
                 max = proj;

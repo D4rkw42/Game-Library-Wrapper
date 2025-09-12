@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <array>
 #include <vector>
+#include <cmath>
 
 #include <glw/utils/math/trigonometry.hpp>
 #include <glw/utils/math/linear-algebra.hpp>
@@ -21,6 +22,42 @@ namespace glw::math {
             Vec2(void) : Vec2(0.0f, 0.0f) {};
             ~Vec2() = default;
 
+            // operations
+
+            inline T Magnitude(void) const noexcept {
+                return std::sqrt(this->x * this->x + this->y * this->y);
+            }
+
+            inline T Rotation(void) const noexcept {
+                return std::atan2(this->y, this->x);
+            }
+
+            inline Vec2<T> Normalize(void)const  noexcept {
+                const T magnitude = Magnitude();
+                return Vec2<T>(this->x / magnitude, this->y / magnitude);
+            }
+
+            constexpr T Dot(const Vec2<T>& other) const noexcept {
+                return this->x * other.x + this->y * other.y;
+            }
+
+            // attribution
+
+            constexpr void operator=(const Vec2& vec) noexcept {
+                this->x = vec.x;
+                this->y = vec.y;
+            }
+
+            constexpr void operator=(const std::vector<T>& vec) {
+                this->x = vec[0];
+                this->y = vec[1];
+            }
+
+            constexpr void operator=(const std::array<T, 2>& vec) noexcept {
+                this->x = vec[0];
+                this->y = vec[1];
+            }
+
             // Operators
 
             constexpr Vec2 operator+(const Vec2& vec) const noexcept {
@@ -37,21 +74,6 @@ namespace glw::math {
 
             constexpr Vec2 operator/(T value) const noexcept {
                 return Vec2(this->x / value, this->y / value);
-            }
-
-            constexpr void operator=(const Vec2& vec) noexcept {
-                this->x = vec.x;
-                this->y = vec.y;
-            }
-
-            constexpr void operator=(const std::vector<T>& vec) {
-                this->x = vec[0];
-                this->y = vec[1];
-            }
-
-            constexpr void operator=(const std::array<T, 2>& vec) noexcept {
-                this->x = vec[0];
-                this->y = vec[1];
             }
 
             constexpr void operator+=(const Vec2& vec) noexcept {
@@ -120,8 +142,15 @@ namespace glw::math {
         newPoint.y = center.y + yOffset;
     }
 
+    // Vector operations
+
     template <typename T>
-    constexpr float EscalarProduct(const glw::math::Vec2<T>& point, const glw::math::Vec2<T>& vector) {
-        return point.x * vector.x + point.y * vector.y;
+    constexpr float Dot(const glw::math::Vec2<T>& vec1, const glw::math::Vec2<T>& vec2) {
+        return vec1.Dot(vec2);
+    }
+
+    template <typename T>
+    constexpr Vec2<T> Normalize(const glw::math::Vec2<T>& vec) noexcept {
+        return vec.Normalize();
     }
 }
