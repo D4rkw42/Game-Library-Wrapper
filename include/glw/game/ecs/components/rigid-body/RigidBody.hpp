@@ -1,6 +1,6 @@
 #pragma once
 
-#include <glw/utils/math/vec2.hpp>
+#include <glw/utils/math/types/vec2.hpp>
 
 namespace glw::game::ecs {
     /// @brief Represents the rigid body for a game element to manage physical phenomena

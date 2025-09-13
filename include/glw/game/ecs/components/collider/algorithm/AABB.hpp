@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-namespace glw::game::ecs::collider {
+namespace glw::game::ecs {
     struct AABB {
         float x, y, width, height;
 

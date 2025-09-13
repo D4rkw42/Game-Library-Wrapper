@@ -9,7 +9,7 @@
 #include <glw/game/ecs/components/rigid-body/RigidBody.hpp>
 #include <glw/game/ecs/components/collider/Collider.hpp>
 
-#include <glw/utils/math/vec2.hpp>
+#include <glw/utils/math/types/vec2.hpp>
 
 namespace glw::game::ecs {
     class GameElement {

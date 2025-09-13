@@ -8,7 +8,7 @@
 #include <glw/game/ecs/components/collider/algorithm/Circunference.hpp>
 #include <glw/game/ecs/components/collider/algorithm/OOB.hpp>
 
-#include <glw/utils/math/vec2.hpp>
+#include <glw/utils/math/types/vec2.hpp>
 
 namespace glw::game::ecs {
     enum HitboxType {

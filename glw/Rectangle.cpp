@@ -3,6 +3,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <glw/utils/math/math.hpp>
+
 glw::graphics::Rectangle::Rectangle(void) : glw::graphics::IShape() {
     this->shader = glw::defs::glfw3::CreateShader(ISHAPE_SHADER_NAME);
     this->mesh = glw::defs::glfw3::CreateMeshSquare();

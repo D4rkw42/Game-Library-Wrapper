@@ -10,7 +10,9 @@ void glw::graphics::FillRectangle(const std::shared_ptr<glw::graphics::Window> &
     glw::resources::graphics::geometry::rectangle->Render(window, x, y, width, height, rotation, color);
 }
 
-void glw::graphics::StrokeRectangle(void) {}
+void glw::graphics::StrokeRectangle(void) {
+    
+}
 
 void glw::graphics::FillCircunference(const std::shared_ptr<glw::graphics::Window>& window, int x, int y, float diameter, float rotation, const glw::graphics::Color& color) {
     if (window == nullptr || color.a <= 0.0f) {

@@ -2,7 +2,7 @@
 
 #include <glw/utils/math/math.hpp>
 
-namespace glw::game::ecs::collider {
+namespace glw::game::ecs {
     struct Circunference {
         float x, y, diameter, rotation; // this only have rotation because visual glitches
 

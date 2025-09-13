@@ -36,4 +36,13 @@ namespace glw::math {
 
         return value;
     }
+
+    constexpr float Remap(float value, float min1, float max1, float min2, float max2) noexcept {
+        float span1 = max1 - min1;
+        float span2 = max2 - min2;
+
+        float percent = (value - min1) / span1;
+
+        return percent * span2 + min2;
+    }
 }

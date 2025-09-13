@@ -4,7 +4,7 @@
 
 #include <glw/utils/math/math.hpp>
 
-namespace glw::game::ecs::collider {
+namespace glw::game::ecs {
     class OOB {
         public:
             float x, y, width, height, rotation;

@@ -3,9 +3,8 @@
 #include <glw/graphics/Window.hpp>
 
 #include <glw/game/ecs/components/collider/Hitbox.hpp>
-#include <glw/game/ecs/components/collider/checker.hpp>
 
-#include <glw/utils/math/vec2.hpp>
+#include <glw/utils/math/types/vec2.hpp>
 
 namespace glw::game::ecs {
     class Collider {

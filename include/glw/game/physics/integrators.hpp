@@ -5,7 +5,7 @@
 #include <glw/game/ecs/components/transform/Transform.hpp>
 #include <glw/game/ecs/components/rigid-body/RigidBody.hpp>
 
-#include <glw/utils/math/vec2.hpp>
+#include <glw/utils/math/types/vec2.hpp>
 
 namespace glw::game::physics::integrator {
     inline void Kinematic(glw::game::ecs::Transform& transform, glw::game::ecs::RigidBody& rigidBody, float dt) noexcept {

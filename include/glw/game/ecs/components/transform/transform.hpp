@@ -1,6 +1,6 @@
 #pragma once
 
-#include <glw/utils/math/vec2.hpp>
+#include <glw/utils/math/types/vec2.hpp>
 
 namespace glw::game::ecs {
     /// @brief Represents the absolute position and oriention of a game element in the world

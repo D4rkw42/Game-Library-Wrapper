@@ -2,9 +2,8 @@
 
 #include <array>
 
+#include <glw/game/ecs/components/collider/hitbox-checker.hpp>
 #include <glw/utils/math/math.hpp>
-
-#include <iostream>
 
 glw::game::ecs::Collider::Collider(const glw::math::Vec2f& position, float rotation): Position(position), Rotation(rotation) {}
 
