@@ -3,7 +3,17 @@
 #include <array>
 
 #include <glw/game/ecs/components/collider/hitbox-checker.hpp>
+#include <glw/game/ecs/components/collider/hitbox-intersection.hpp>
+
+#include <glw/graphics/geometry/geometry.hpp>
+
 #include <glw/utils/math/math.hpp>
+
+// buffers
+
+static std::vector<glw::math::Vec2f> INTERSECTION_COLLIDER_BUFFER;
+
+//
 
 glw::game::ecs::Collider::Collider(const glw::math::Vec2f& position, float rotation): Position(position), Rotation(rotation) {}
 
@@ -29,7 +39,7 @@ void glw::game::ecs::Collider::Update(const glw::math::Vec2f& position, float ro
     }
 }
 
-bool glw::game::ecs::Collider::Check(Collider& other) const {
+bool glw::game::ecs::Collider::Check(const glw::game::ecs::Collider& other) const noexcept {
     for (const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox1 : this->HitboxList) {
         for (const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox2 : other.HitboxList) {
             if (glw::game::ecs::CheckHitboxCollision(hitbox1, hitbox2)) {
@@ -39,6 +49,24 @@ bool glw::game::ecs::Collider::Check(Collider& other) const {
     }
 
     return false;
+}
+
+std::vector<glw::math::Vec2f> glw::game::ecs::Collider::FindIntersections(const glw::game::ecs::Collider& other) const noexcept {
+    INTERSECTION_COLLIDER_BUFFER.clear();
+
+    for (const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox1 : this->HitboxList) {
+        for (const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox2 : other.HitboxList) {
+            std::vector<glw::math::Vec2f> intersections = glw::game::ecs::FindHitboxIntersection(hitbox1, hitbox2);
+            
+            INTERSECTION_COLLIDER_BUFFER.insert(
+                INTERSECTION_COLLIDER_BUFFER.begin(),
+                std::make_move_iterator(intersections.begin()),
+                std::make_move_iterator(intersections.end())
+            );
+        }
+    }
+
+    return INTERSECTION_COLLIDER_BUFFER;
 }
 
 void glw::game::ecs::Collider::Render(const std::shared_ptr<glw::graphics::WindowWrapper>& window) const {
@@ -59,4 +87,12 @@ void glw::game::ecs::Collider::AddCircunference(const glw::math::Vec2f& position
 
 void glw::game::ecs::Collider::RegisterHitbox(const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox) noexcept {
     this->HitboxList.push_back(hitbox);
+}
+
+// utils
+
+void glw::game::ecs::RenderCollisionIntersections(const std::shared_ptr<glw::graphics::Window>& window, std::vector<glw::math::Vec2f>& intersections) {
+    for (const glw::math::Vec2f& point : intersections) {
+        glw::graphics::FillCircunference(window, point.x, point.y, 3.5f, glw::graphics::Colors::BLUE);
+    }
 }

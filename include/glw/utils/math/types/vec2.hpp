@@ -21,6 +21,25 @@ namespace glw::math {
 
             Vec2(void) : Vec2(0.0f, 0.0f) {};
             ~Vec2() = default;
+            
+            Vec2(Vec2&& other) noexcept {
+                this->x = other.x;
+                this->y = other.y;
+            }
+            
+            Vec2& operator=(const Vec2& other) noexcept {
+                this->x = other.x;
+                this->y = other.y;
+
+                return *this;
+            }
+
+            Vec2& operator=(Vec2&& other) noexcept {
+                this->x = other.x;
+                this->y = other.y;
+
+                return *this;
+            }
 
             // operations
 
@@ -42,11 +61,6 @@ namespace glw::math {
             }
 
             // attribution
-
-            constexpr void operator=(const Vec2& vec) noexcept {
-                this->x = vec.x;
-                this->y = vec.y;
-            }
 
             constexpr void operator=(const std::vector<T>& vec) {
                 this->x = vec[0];

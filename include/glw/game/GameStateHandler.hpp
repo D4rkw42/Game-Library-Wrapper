@@ -10,7 +10,7 @@
 
 // @TEMPORARY change to suitable FPS render user configuration eventually
 constexpr int RENDER_STEP = 60;
-constexpr int UPDATE_STEP = 200; // non-configurable
+constexpr int UPDATE_STEP = 120; // non-configurable
 
 namespace glw::game {
     /// @brief A handler to manage and run your game states

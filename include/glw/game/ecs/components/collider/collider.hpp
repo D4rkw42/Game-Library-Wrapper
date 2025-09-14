@@ -2,6 +2,8 @@
 
 #include <glw/graphics/Window.hpp>
 
+#include <vector>
+
 #include <glw/game/ecs/components/collider/Hitbox.hpp>
 
 #include <glw/utils/math/types/vec2.hpp>
@@ -23,7 +25,9 @@ namespace glw::game::ecs {
             ~Collider() = default;
 
             void Update(const glw::math::Vec2f& position, float rotation) noexcept;
-            bool Check(Collider& other) const;
+            bool Check(const Collider& other) const noexcept;
+
+            std::vector<glw::math::Vec2f> FindIntersections(const Collider& other) const noexcept;
 
             void Render(const std::shared_ptr<glw::graphics::WindowWrapper>& window) const;
 
@@ -47,9 +51,15 @@ namespace glw::game::ecs {
             void RegisterHitbox(const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox) noexcept;
     };
 
-    inline bool CheckCollision(Collider& collider1, Collider& collider2) {
+    inline bool CheckCollision(const Collider& collider1, const Collider& collider2) {
         return collider1.Check(collider2);
     };
+
+    inline std::vector<glw::math::Vec2f> FindCollisionIntersections(const Collider& collider1, const Collider& collider2) {
+        return collider1.FindIntersections(collider2);
+    }
+
+    void RenderCollisionIntersections(const std::shared_ptr<glw::graphics::Window>& window, std::vector<glw::math::Vec2f>& intersections);
 
     /// @brief An invalid collider
     inline Collider NullCollider;
