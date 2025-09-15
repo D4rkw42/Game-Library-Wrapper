@@ -42,7 +42,7 @@ namespace glw::math {
             return *this;
         }
 
-        bool CheckSegmentPoint(const std::array<float, 2>& point) const noexcept {
+        inline bool CheckSegmentPoint(const std::array<float, 2>& point) const noexcept {
             bool horizontalAxis, verticalAxis;
 
             if (this->equation.x.k > 0) {

@@ -59,7 +59,7 @@ namespace glw::game::ecs {
         return collider1.FindIntersections(collider2);
     }
 
-    void RenderCollisionIntersections(const std::shared_ptr<glw::graphics::Window>& window, std::vector<glw::math::Vec2f>& intersections);
+    void RenderCollisionIntersections(const std::shared_ptr<glw::graphics::Window>& window, const std::vector<glw::math::Vec2f>& intersections);
 
     /// @brief An invalid collider
     inline Collider NullCollider;

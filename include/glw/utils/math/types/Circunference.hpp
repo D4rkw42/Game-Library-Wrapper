@@ -36,7 +36,7 @@ namespace glw::math {
             return *this;
         }
 
-        bool CheckCircunferencePoint(const std::array<float, 2>& point) const noexcept {
+        inline bool CheckCircunferencePoint(const std::array<float, 2>& point) const noexcept {
             float dist = glw::math::Distance(point, this->center);
             return dist <= this->diameter / 2 + 0.01f;
         }

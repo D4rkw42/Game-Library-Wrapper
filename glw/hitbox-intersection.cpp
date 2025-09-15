@@ -2,21 +2,19 @@
 
 #include <glw/utils/math/math.hpp>
 
-std::vector<glw::math::Vec2f> glw::game::ecs::FindHitboxIntersection(const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox1, const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox2) {
+void glw::game::ecs::FindHitboxIntersection(const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox1, const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox2, std::vector<glw::math::Vec2f>& intersections) {
     if (hitbox1->Type == glw::game::ecs::HitboxType::RECTANGLE && hitbox2->Type == glw::game::ecs::HitboxType::RECTANGLE) {
-        return glw::game::ecs::FindRectangleToRectangleIntersection(hitbox1, hitbox2);
+        glw::game::ecs::FindRectangleToRectangleIntersection(hitbox1, hitbox2, intersections);
     } else if (hitbox1->Type == glw::game::ecs::HitboxType::CIRCUNFERENCE && hitbox2->Type == glw::game::ecs::HitboxType::CIRCUNFERENCE) {
-        return FindCircunferenceToCircunferenceIntersection(hitbox1, hitbox2);
+        FindCircunferenceToCircunferenceIntersection(hitbox1, hitbox2, intersections);
     } else if (hitbox1->Type == glw::game::ecs::HitboxType::RECTANGLE && hitbox2->Type == glw::game::ecs::HitboxType::CIRCUNFERENCE) {
-        return FindRectangleToCircunferenceIntersection(hitbox1, hitbox2);
+        FindRectangleToCircunferenceIntersection(hitbox1, hitbox2, intersections);
     } else if (hitbox1->Type == glw::game::ecs::HitboxType::CIRCUNFERENCE && hitbox2->Type == glw::game::ecs::HitboxType::RECTANGLE) {
-        return FindRectangleToCircunferenceIntersection(hitbox2, hitbox1);
+        FindRectangleToCircunferenceIntersection(hitbox2, hitbox1, intersections);
     }
-
-    return std::vector<glw::math::Vec2f>();
 }
 
-std::vector<glw::math::Vec2f> glw::game::ecs::FindRectangleToRectangleIntersection(const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox1, const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox2) {
+void glw::game::ecs::FindRectangleToRectangleIntersection(const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox1, const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox2, std::vector<glw::math::Vec2f>& intersections) {
     const glw::game::ecs::OOB* oob1 = static_cast<glw::game::ecs::OOB*>(hitbox1->algorithm);
     const glw::game::ecs::OOB* oob2 = static_cast<glw::game::ecs::OOB*>(hitbox2->algorithm);
 
@@ -33,9 +31,6 @@ std::vector<glw::math::Vec2f> glw::game::ecs::FindRectangleToRectangleIntersecti
         segments2[i] = glw::math::Segment(origin2, destination2);
     }
 
-    std::vector<glw::math::Vec2f> intersections;
-    intersections.reserve(16);
-
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 4; ++j) {
             const std::array<float, 2> intersection = glw::math::FindLineIntersectionFromSegment(segments1[i], segments2[j]);
@@ -49,11 +44,9 @@ std::vector<glw::math::Vec2f> glw::game::ecs::FindRectangleToRectangleIntersecti
             }
         }
     }
-
-    return intersections;
 }
 
-std::vector<glw::math::Vec2f> glw::game::ecs::FindCircunferenceToCircunferenceIntersection(const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox1, const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox2) {
+void glw::game::ecs::FindCircunferenceToCircunferenceIntersection(const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox1, const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox2, std::vector<glw::math::Vec2f>& intersections) {
     const glw::game::ecs::Circunference* circ1 = static_cast<glw::game::ecs::Circunference*>(hitbox1->algorithm);
     const glw::game::ecs::Circunference* circ2 = static_cast<glw::game::ecs::Circunference*>(hitbox2->algorithm);
 
@@ -61,9 +54,6 @@ std::vector<glw::math::Vec2f> glw::game::ecs::FindCircunferenceToCircunferenceIn
     const glw::math::Circunference circunference2 = glw::math::Circunference(std::array<float, 2> { circ2->x, circ2->y }, circ2->diameter);
 
     const std::array<float, 4> points = glw::math::FindCircunferenceIntersection(circunference1, circunference2);
-
-    std::vector<glw::math::Vec2f> intersections;
-    intersections.reserve(2);
 
     for (int i = 0; i < 4; i += 2) {
         std::array<float, 2> point { points[i], points[i + 1] };
@@ -76,16 +66,11 @@ std::vector<glw::math::Vec2f> glw::game::ecs::FindCircunferenceToCircunferenceIn
             intersections.emplace_back(point);
         }
     }
-
-    return intersections;
 }
 
-std::vector<glw::math::Vec2f> glw::game::ecs::FindRectangleToCircunferenceIntersection(const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox1, const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox2) {
+void glw::game::ecs::FindRectangleToCircunferenceIntersection(const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox1, const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox2, std::vector<glw::math::Vec2f>& intersections) {
     const glw::game::ecs::OOB* oob = static_cast<glw::game::ecs::OOB*>(hitbox1->algorithm);
     const glw::game::ecs::Circunference* circ = static_cast<glw::game::ecs::Circunference*>(hitbox2->algorithm);
-
-    std::vector<glw::math::Vec2f> intersections;
-    intersections.reserve(8);
 
     const glw::math::Circunference circunference = glw::math::Circunference(std::array<float, 2> { circ->x, circ->y }, circ->diameter);
     
@@ -109,6 +94,4 @@ std::vector<glw::math::Vec2f> glw::game::ecs::FindRectangleToCircunferenceInters
             }
         }
     }
-
-    return intersections;
 }

@@ -46,20 +46,15 @@ bool glw::game::ecs::Collider::Check(const glw::game::ecs::Collider& other) cons
 }
 
 std::vector<glw::math::Vec2f> glw::game::ecs::Collider::FindIntersections(const glw::game::ecs::Collider& other) const noexcept {
-    std::vector<glw::math::Vec2f> intersections, temp;
+    std::vector<glw::math::Vec2f> intersections;
 
     // waits min colision between two rectangular hitbox (16 points of max collision)
-    intersections.reserve(16);
+    const int memory = this->HitboxList.size() * other.HitboxList.size() * 4;
+    intersections.reserve(memory);
 
     for (const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox1 : this->HitboxList) {
         for (const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox2 : other.HitboxList) {
-            temp = glw::game::ecs::FindHitboxIntersection(hitbox1, hitbox2);
-            
-            intersections.insert(
-                intersections.end(),
-                std::make_move_iterator(temp.begin()),
-                std::make_move_iterator(temp.end())
-            );
+            glw::game::ecs::FindHitboxIntersection(hitbox1, hitbox2, intersections);
         }
     }
 
@@ -88,7 +83,7 @@ void glw::game::ecs::Collider::RegisterHitbox(const std::shared_ptr<glw::game::e
 
 // utils
 
-void glw::game::ecs::RenderCollisionIntersections(const std::shared_ptr<glw::graphics::Window>& window, std::vector<glw::math::Vec2f>& intersections) {
+void glw::game::ecs::RenderCollisionIntersections(const std::shared_ptr<glw::graphics::Window>& window, const std::vector<glw::math::Vec2f>& intersections) {
     for (const glw::math::Vec2f& point : intersections) {
         glw::graphics::FillCircunference(window, point.x, point.y, 3.5f, glw::graphics::Colors::BLUE);
     }
