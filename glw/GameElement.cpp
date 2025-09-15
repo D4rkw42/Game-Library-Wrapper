@@ -31,7 +31,7 @@ void glw::game::ecs::GameElement::LoadElement(float dt) {
     // load renderable
 
     if (!glw::game::ecs::InvalidCollider(collider)) {
-        collider.Update(transform.Position, transform.Rotation);
+        collider.Update(Transform().Position, Transform().Rotation);
     }
 }
 

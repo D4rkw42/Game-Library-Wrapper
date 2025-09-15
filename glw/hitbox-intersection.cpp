@@ -33,10 +33,8 @@ std::vector<glw::math::Vec2f> glw::game::ecs::FindRectangleToRectangleIntersecti
         segments2[i] = glw::math::Segment(origin2, destination2);
     }
 
-    static std::vector<glw::math::Vec2f> intersections;
-
+    std::vector<glw::math::Vec2f> intersections;
     intersections.reserve(16);
-    intersections.clear();
 
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 4; ++j) {
@@ -62,12 +60,10 @@ std::vector<glw::math::Vec2f> glw::game::ecs::FindCircunferenceToCircunferenceIn
     const glw::math::Circunference circunference1 = glw::math::Circunference(std::array<float, 2> { circ1->x, circ1->y }, circ1->diameter);
     const glw::math::Circunference circunference2 = glw::math::Circunference(std::array<float, 2> { circ2->x, circ2->y }, circ2->diameter);
 
-    std::array<float, 4> points = glw::math::FindCircunferenceIntersection(circunference1, circunference2);
+    const std::array<float, 4> points = glw::math::FindCircunferenceIntersection(circunference1, circunference2);
 
-    static std::vector<glw::math::Vec2f> intersections;
-
+    std::vector<glw::math::Vec2f> intersections;
     intersections.reserve(2);
-    intersections.clear();
 
     for (int i = 0; i < 4; i += 2) {
         std::array<float, 2> point { points[i], points[i + 1] };
@@ -88,10 +84,8 @@ std::vector<glw::math::Vec2f> glw::game::ecs::FindRectangleToCircunferenceInters
     const glw::game::ecs::OOB* oob = static_cast<glw::game::ecs::OOB*>(hitbox1->algorithm);
     const glw::game::ecs::Circunference* circ = static_cast<glw::game::ecs::Circunference*>(hitbox2->algorithm);
 
-    static std::vector<glw::math::Vec2f> intersections;
-    
+    std::vector<glw::math::Vec2f> intersections;
     intersections.reserve(8);
-    intersections.clear();
 
     const glw::math::Circunference circunference = glw::math::Circunference(std::array<float, 2> { circ->x, circ->y }, circ->diameter);
     
@@ -101,7 +95,7 @@ std::vector<glw::math::Vec2f> glw::game::ecs::FindRectangleToCircunferenceInters
 
         const glw::math::Segment segment = glw::math::Segment(origin, destination);
 
-        std::array<float, 4> points = glw::math::FindLineToCircunferenceIntersection(segment, circunference);
+        const std::array<float, 4> points = glw::math::FindLineToCircunferenceIntersection(segment, circunference);
 
         for (int i = 0; i < 4; i += 2) {
             std::array<float, 2> point { points[i], points[i + 1] };

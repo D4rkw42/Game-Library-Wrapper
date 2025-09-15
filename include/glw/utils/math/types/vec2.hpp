@@ -37,7 +37,6 @@ namespace glw::math {
             Vec2& operator=(Vec2&& other) noexcept {
                 this->x = other.x;
                 this->y = other.y;
-
                 return *this;
             }
 

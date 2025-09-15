@@ -9,12 +9,6 @@
 
 #include <glw/utils/math/math.hpp>
 
-// buffers
-
-static std::vector<glw::math::Vec2f> INTERSECTION_COLLIDER_BUFFER;
-
-//
-
 glw::game::ecs::Collider::Collider(const glw::math::Vec2f& position, float rotation): Position(position), Rotation(rotation) {}
 
 void glw::game::ecs::Collider::Update(const glw::math::Vec2f& position, float rotation) noexcept {
@@ -52,21 +46,24 @@ bool glw::game::ecs::Collider::Check(const glw::game::ecs::Collider& other) cons
 }
 
 std::vector<glw::math::Vec2f> glw::game::ecs::Collider::FindIntersections(const glw::game::ecs::Collider& other) const noexcept {
-    INTERSECTION_COLLIDER_BUFFER.clear();
+    std::vector<glw::math::Vec2f> intersections, temp;
+
+    // waits min colision between two rectangular hitbox (16 points of max collision)
+    intersections.reserve(16);
 
     for (const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox1 : this->HitboxList) {
         for (const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox2 : other.HitboxList) {
-            std::vector<glw::math::Vec2f> intersections = glw::game::ecs::FindHitboxIntersection(hitbox1, hitbox2);
+            temp = glw::game::ecs::FindHitboxIntersection(hitbox1, hitbox2);
             
-            INTERSECTION_COLLIDER_BUFFER.insert(
-                INTERSECTION_COLLIDER_BUFFER.begin(),
-                std::make_move_iterator(intersections.begin()),
-                std::make_move_iterator(intersections.end())
+            intersections.insert(
+                intersections.end(),
+                std::make_move_iterator(temp.begin()),
+                std::make_move_iterator(temp.end())
             );
         }
     }
 
-    return INTERSECTION_COLLIDER_BUFFER;
+    return intersections;
 }
 
 void glw::game::ecs::Collider::Render(const std::shared_ptr<glw::graphics::WindowWrapper>& window) const {
