@@ -3,7 +3,7 @@
 #include <glw/utils/math/math.hpp>
 
 void glw::game::physics::Gravity(const float G, const glw::game::ecs::Transform& transform, glw::game::ecs::RigidBody& rigidBody, bool horizontal) noexcept {
-    rigidBody.ApplyForce(G * rigidBody.Mass, horizontal? glw::math::Rad(180) : glw::math::Rad(270));
+    rigidBody.ApplyForce(G * rigidBody.Mass, horizontal? glw::math::DEG180 : glw::math::DEG270);
 }
 
 void glw::game::physics::GravitySource(const glw::math::Vec2f& source, const float G, const glw::game::ecs::Transform& transform, glw::game::ecs::RigidBody& rigidBody) noexcept {

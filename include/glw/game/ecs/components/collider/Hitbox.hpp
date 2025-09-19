@@ -65,5 +65,25 @@ namespace glw::game::ecs {
     inline std::shared_ptr<Hitbox> CreateCircunferenceHitbox(const glw::math::Vec2f& position, float diameter, float rotation) noexcept {
         std::shared_ptr<CircunferenceHitbox> mHitbox = std::make_shared<CircunferenceHitbox>(position, diameter, rotation);
         return std::dynamic_pointer_cast<Hitbox>(mHitbox);
-    } 
+    }
+
+    // utils
+
+    inline glw::game::ecs::OOB* GetRectangleHitboxAlgorithm(const std::shared_ptr<Hitbox>& hitbox) noexcept {
+        if (hitbox->Type == HitboxType::RECTANGLE) {
+            glw::game::ecs::OOB* algorithm = static_cast<glw::game::ecs::OOB*>(hitbox->algorithm);
+            return algorithm;
+        }
+
+        return NULL;
+    }
+
+    inline glw::game::ecs::Circunference* GetCircunferenceHitboxAlgorithm(const std::shared_ptr<Hitbox>& hitbox) noexcept {
+        if (hitbox->Type == HitboxType::CIRCUNFERENCE) {
+            glw::game::ecs::Circunference* algorithm = static_cast<glw::game::ecs::Circunference*>(hitbox->algorithm);
+            return algorithm;
+        }
+
+        return NULL;
+    }
 }

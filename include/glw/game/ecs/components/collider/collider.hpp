@@ -13,7 +13,12 @@ namespace glw::game::ecs {
         public:
             HitboxList HitboxList;
 
-            glw::math::Vec2f Position;
+            glw::math::Vec2f Position, Center;
+
+            float
+                Width = 0.0f,
+                Height = 0.0f;
+
             float Rotation = 0.0f;
 
             // Registers if the collider is under collision
@@ -30,6 +35,7 @@ namespace glw::game::ecs {
             std::vector<glw::math::Vec2f> FindIntersections(const Collider& other) const noexcept;
 
             void Render(const std::shared_ptr<glw::graphics::WindowWrapper>& window) const;
+            void RenderLimits(const std::shared_ptr<glw::graphics::WindowWrapper>& window) const;
 
             // Criação de hitbox
             void AddRectangle(const glw::math::Vec2f& position, float width, float height, float rotation = 0.0f) noexcept;
@@ -49,6 +55,9 @@ namespace glw::game::ecs {
 
         private:
             void RegisterHitbox(const std::shared_ptr<glw::game::ecs::Hitbox>& hitbox) noexcept;
+
+            void DynamicComputingEvaluate(const glw::math::Vec2f& reference, const std::array<float, 2>& point, std::array<float, 4>& limits, std::array<std::array<float, 2>, 4>& points) const noexcept;
+            void ComputeDynamicSize(void) noexcept;
     };
 
     inline bool CheckCollision(const Collider& collider1, const Collider& collider2) {

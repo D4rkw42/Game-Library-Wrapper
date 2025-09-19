@@ -3,10 +3,10 @@
 #include <cmath>
 #include <array>
 
+#include <glw/utils/math/constants.hpp>
+
 #include <glw/utils/math/types/Segment.hpp>
 #include <glw/utils/math/types/Circunference.hpp>
-
-#include <iostream>
 
 namespace glw::math {
     // if x or y is std::numeric_limits<T>::infinity, the lines are the same or just parallel
@@ -55,12 +55,7 @@ namespace glw::math {
         float delta = B * B - 4 * A * C;
 
         if (delta < 0) {
-            return std::array<float, 4> {
-                std::numeric_limits<float>::quiet_NaN(),
-                std::numeric_limits<float>::quiet_NaN(),
-                std::numeric_limits<float>::quiet_NaN(),
-                std::numeric_limits<float>::quiet_NaN()
-            };
+            return std::array<float, 4> { glw::math::NaN, glw::math::NaN, glw::math::NaN, glw::math::NaN };
         }
 
         float t1 = (-B + std::sqrt(delta)) / (2 * A);

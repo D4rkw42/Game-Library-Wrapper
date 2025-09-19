@@ -8,7 +8,7 @@ namespace glw::math {
     /// @param center the center of rotation
     /// @param point the point to be rotated
     /// @param rotation the rotation `rad`
-    /// @param newPoint the ne w point
+    /// @param newPoint the new point
     constexpr void RotatePoint(const std::array<float, 2>& center, const std::array<float, 2>& point, float rotation, std::array<float, 2>& newPoint) noexcept {
         float vectorX = point[0] - center[0];
         float vectorY = point[1] - center[1];

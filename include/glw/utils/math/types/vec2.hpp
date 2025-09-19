@@ -123,12 +123,12 @@ namespace glw::math {
 
     template <typename T>
     inline float Distance(const glw::math::Vec2<T>& p1, const glw::math::Vec2<T>& p2) noexcept {
-        return Distance(p1.x, p1.y, p2.x, p2.y);
+        return glw::math::Distance(p1.x, p1.y, p2.x, p2.y);
     }
 
     template <typename T>
     constexpr float AngleBetweenPoints(const glw::math::Vec2<T>& p1, const glw::math::Vec2<T>& p2) noexcept {
-        return AngleBetweenPoints(p1.x, p1.y, p2.x, p2.y);
+        return glw::math::AngleBetweenPoints(p1.x, p1.y, p2.x, p2.y);
     }
 
     template <typename T>
@@ -136,7 +136,7 @@ namespace glw::math {
         float decomposedX = 0.0f;
         float decomposedY = 0.0f;
 
-        DecomposeVector(magnitude, direction, decomposedX, decomposedY);
+        glw::math::DecomposeVector(magnitude, direction, decomposedX, decomposedY);
         described = glw::math::Vec2<T>(decomposedX, decomposedY);
     }
 
